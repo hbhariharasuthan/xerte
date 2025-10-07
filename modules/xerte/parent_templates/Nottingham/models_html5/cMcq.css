@@ -1,0 +1,49 @@
+/* cMcq.html */
+	
+	#infoHolder .panel {
+		overflow:	auto;
+	}
+	
+	#optionHolder {
+		margin-top:	1em;
+	}
+	
+	.optionGroup {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	
+	#optionHolder input {
+		float:		left;
+		display:	block;
+	}
+	
+	#optionHolder .optionTxt {
+		cursor:			pointer;
+		position:		relative;
+		margin-left:	2em;
+		margin-bottom:	10px;
+		display:		block;
+	}
+	
+	#infoHolder button {
+		margin:		10px;
+		float:		right;
+	}
+	
+	#feedback {
+		clear:	both;
+	}
+
+	legend#question {
+		width: 100%;
+		font-weight: bold;
+		padding-left: 0.3em;
+		padding-right: 0.3em;
+		box-sizing: border-box;
+	}
+
+	legend#question p {
+		padding-left: 0;
+		padding-right: 0;
+	}

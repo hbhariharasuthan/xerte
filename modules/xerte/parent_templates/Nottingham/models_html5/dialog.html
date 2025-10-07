@@ -1,0 +1,366 @@
+<script type="text/javascript">
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+	// pageChanged & sizeChanged functions are needed in every model file
+	// other functions for model should also be in here to avoid conflicts
+	var dialog = new function() {
+		var casesensitive,
+		tick = x_getLangInfo(x_languageData.find("tick")[0], "title", "Correct"),
+		correctAnswers = 0;
+
+		// function called every time the page is viewed after it has initially loaded
+		this.pageChanged = function() {
+			// reset questions
+			$("#pageContents").data("currentQ", 0);
+			$("#submitBtn")
+				.button({label:	$("#pageContents").data("submitTxt")})
+				.data({
+					"attempt":	0,
+					"state":	0
+				})
+				.show();
+
+			$("#pageContents .result")
+				.addClass("hidden")
+				.parent().find(".tickTxt").html("");
+			
+			$("#pageContents input")
+				.prop("readonly", false)
+				.val("");
+			$("#pageContents .question:first input").focus();
+			$("#pageContents .question:not(:first)").hide();
+			$("#feedback").html("");
+		}
+
+		// function called every time the size of the LO is changed
+		this.sizeChanged = function() {
+			const $panel = $("#pageContents .panel");
+			$panel.height(x_getAvailableHeight([$panel]));
+		}
+
+		this.init = function() {
+
+			this.weighting = 1.0;
+            if (x_currentPageXML.getAttribute("trackingWeight") != undefined)
+            {
+                this.weighting = x_currentPageXML.getAttribute("trackingWeight");
+            }
+			if(x_currentPageXML.getAttribute("judge") != undefined && x_currentPageXML.getAttribute("judge") == 'false'){
+				this.weighting= 0.0;
+			}
+			
+            XTSetPageType(x_currentPage, 'numeric', $(x_currentPageXML).children().length, this.weighting);
+			var panelWidth = x_currentPageXML.getAttribute("panelWidth");
+			if (panelWidth == "Full") {
+				$("#pageContents .right div:first").appendTo($("#pageContents"));
+				$("#pageContents .splitScreen").remove();
+			} else {
+				$("#textHolder").html(x_addLineBreaks(x_currentPageXML.getAttribute("text")));
+				if (panelWidth == "Small") {
+					$("#pageContents .splitScreen").addClass("large");
+				} else if (panelWidth == "Medium") {
+					$("#pageContents .splitScreen").addClass("medium");
+				} else {
+					$("#pageContents .splitScreen").addClass("small");
+				}
+			}
+			
+			casesensitive = x_currentPageXML.getAttribute("casesensitive") != "true" && x_currentPageXML.getAttribute("casesensitive") != "1" ? false : true;
+			var answerDelimeter = x_currentPageXML.getAttribute("answerDelimeter");
+			if (answerDelimeter == undefined) {
+				answerDelimeter = ",";
+			}
+
+
+			// if language attributes aren't in xml will have to use english fall back
+			var tryTxt = x_currentPageXML.getAttribute("tryTxt");
+			if (tryTxt == undefined) {
+				tryTxt = "Try again.";
+			}
+			var correctTxt = x_currentPageXML.getAttribute("correctTxt");
+			if (correctTxt == undefined) {
+				correctTxt = "The correct answer is shown.";
+			}
+			var submitTxt = x_currentPageXML.getAttribute("submitBtnTxt");
+			if (submitTxt == undefined) {
+				submitTxt = "Submit";
+			}
+			var nextTxt = x_currentPageXML.getAttribute("nextBtnTxt");
+			if (nextTxt == undefined) {
+				nextTxt = "Next";
+			}
+
+			$("#pageContents").data({
+				"currentQ"	:0,
+				"tryTxt"	:tryTxt,
+				"correctTxt":correctTxt,
+				"submitTxt"	:submitTxt,
+				"nextTxt"	:nextTxt
+			});
+
+			var $question = $("#pageContents .question:first");
+			$question.find(".result")
+				.addClass("hidden")
+				.parent().find(".tickTxt").html("");
+
+			$(x_currentPageXML).children()
+				.each(function(i) {
+					var $thisQ;
+					if (i != 0) {
+						$thisQ = $question.clone().appendTo($question.parent());
+						$thisQ.hide();
+					} else {
+						$thisQ = $question;
+						let answers = this.getAttribute("answer").split(answerDelimeter)
+						XTEnterInteraction(x_currentPage, 0, 'fill-in', this.getAttribute("question"), answers, answers, null /* never used*/, x_currentPageXML.getAttribute("grouping"));
+					}
+
+					$thisQ.find("label")
+						.html(x_addLineBreaks(this.getAttribute("question")))
+						.attr("for", "answer" + i);
+						
+					var answerFieldLabel = this.getAttribute("answerFieldLabel");
+					if (answerFieldLabel === undefined | answerFieldLabel === null) {
+						answerFieldLabel = "Answer";
+					}
+					//Add aria-label to answer box
+					//$thisQ.find("input").attr({"aria-label" : answerFieldLabel});
+					$thisQ.find("input").attr("id", "answer" + i);
+				});
+
+			$("#submitBtn")
+				.button({
+					label:	submitTxt
+					})
+				.data({
+					"attempt":	0,
+					"state":	0,
+					"click":	true,
+					"pause":	false
+					})
+				.click(function() {
+					var $this = $(this);
+					if ($this.data("click") == true) {
+						var $pageContents = $("#pageContents"),
+							$feedback = $("#feedback");
+						
+						if ($this.data("state") == 0) { // mark answer
+							// Decode answer
+							var qNo = $pageContents.data("currentQ"),
+								$thisInput = $("#pageContents .question:eq(" + qNo + ") input"),
+								isCorrect = false,
+								correctAnswer = $('<div/>').html($(x_currentPageXML).children()[qNo].getAttribute("answer")).text();
+
+							if (correctAnswer.indexOf(answerDelimeter) != -1) {
+								var splitAnswers = correctAnswer.split(answerDelimeter);
+								for (var i=0; i<splitAnswers.length; i++) {
+									if (casesensitive) {
+										if ($.trim($thisInput.val()) == $.trim(splitAnswers[i])) {
+											isCorrect = true;
+											break;
+										}
+									}
+									else {
+										if ($.trim($thisInput.val().toLowerCase()) == $.trim(splitAnswers[i]).toLowerCase()) {
+											isCorrect = true;
+											break;
+										}
+									}
+								}
+							} else {
+									if (casesensitive) {
+										if ($.trim($thisInput.val()) == correctAnswer) {
+											isCorrect = true;
+										}
+									}
+									else {
+										if ($.trim($thisInput.val().toLowerCase()) == correctAnswer.toLowerCase()) {
+											isCorrect = true;
+										}
+									}
+							}
+							let userAnswer = $thisInput.val();
+							let judge = x_currentPageXML.getAttribute("judge") == "false"? false: true;
+							if (isCorrect == true || !judge) { // correct
+								$thisInput
+									.val($.trim($thisInput.val()))
+									.prop("readonly", true);
+								if(judge) {
+									$thisInput.parent().find(".result")
+										.removeClass("hidden")
+										.parent().find(".tickTxt").html(tick);
+								}
+								
+								$feedback.html("");
+								$this.focus();
+								if (qNo + 1 != $(x_currentPageXML).children().length) {
+									$this
+										.button({label:	$pageContents.data("nextTxt")})
+										.data("state", 1);
+								} else {
+									$this.hide();
+								}
+								let result = {
+									success: true,
+									score: 100,
+									judge: judge
+								}
+								XTExitInteraction(x_currentPage, qNo, result, null/* ignored for fill-in*/, userAnswer, null/*not used*/);
+								correctAnswers += 1;
+								if($pageContents.data("currentQ")+1 == $(x_currentPageXML).children().length){
+									XTSetPageScore(x_currentPage, 100 * (correctAnswers / $(x_currentPageXML).children().length), x_currentPageXML.getAttribute("trackinglabel"));
+								}
+								if(!judge){
+									$feedback.html("");
+							$("#pageContents .question:eq(" + ($pageContents.data("currentQ") + 1) + ")").fadeIn();
+									$this
+										.data({
+											"attempt": 0,
+											"state": 0
+										})
+										.button({ label: $("#pageContents").data("submitTxt") });
+
+									var qNo = $pageContents.data("currentQ");
+
+									$("#pageContents .question:eq(" + (qNo + 1) + ") input").focus();
+									let question = $(x_currentPageXML).children()[qNo + 1];
+									let answers = question.getAttribute("answer").split(answerDelimeter);
+									XTEnterInteraction(x_currentPage, qNo + 1, 'fill-in', question.getAttribute("question"), answers, answers, null /* never used*/, x_currentPageXML.getAttribute("grouping"));
+									$pageContents.data("currentQ", qNo + 1);
+								}
+							} else { // incorrect
+								$this.data("attempt", $this.data("attempt") + 1);
+								var currentAttempt = $this.data("attempt"),
+									allowedAttempts = x_currentPageXML.getAttribute("attempts");
+								
+								if (allowedAttempts == undefined) {
+									allowedAttempts = 0;
+								}
+								if (currentAttempt == allowedAttempts) { // show hint
+									$feedback.html($(x_currentPageXML).children()[qNo].getAttribute("hint"));
+								} else if (currentAttempt > allowedAttempts || !judge) { // show correct answer
+									$feedback.html($pageContents.data("correctTxt"));
+									var correctAnswer = $('<div/>').html($(x_currentPageXML).children()[qNo].getAttribute("answer")).text();
+									if (correctAnswer.indexOf(answerDelimeter) != -1) {
+										correctAnswer = $.trim(correctAnswer.split(answerDelimeter)[0]);
+									}
+									$thisInput
+										.val(correctAnswer)
+										.prop("readonly", true);
+									if (qNo + 1 != $(x_currentPageXML).children().length) {
+										$this
+											.button({label:	$pageContents.data("nextTxt")})
+											.data("state", 1);
+										$feedback.html($feedback.html());
+									} else {
+										$this.hide();
+									}
+									let result = {
+										success: false,
+										score: 0,
+										judge: judge
+									};
+									XTExitInteraction(x_currentPage, qNo, result, null/* ignored for fill-in*/, userAnswer, null/*not used*/);
+									if($pageContents.data("currentQ")+1 == $(x_currentPageXML).children().length){
+										XTSetPageScore(x_currentPage, 100 * (correctAnswers / $(x_currentPageXML).children().length), x_currentPageXML.getAttribute("trackinglabel"));
+									}
+								} else { // another attempt allowed
+									$feedback.html($pageContents.data("tryTxt"));
+								}
+							}
+						} else { // move to next question
+							$feedback.html("");
+							$("#pageContents .question:eq(" + ($pageContents.data("currentQ") + 1) + ")").fadeIn();
+							$this
+								.data({
+									"attempt":	0,
+									"state":	0
+									})
+								.button({label:	$("#pageContents").data("submitTxt")});
+							
+							var qNo = $pageContents.data("currentQ");
+							/*$("#pageContents .question:eq(" + qNo + ") .result")
+								.removeClass("hidden")
+								.parent().find(".tickTxt").html(tick);*/
+							
+							$("#pageContents .question:eq(" + (qNo + 1) + ") input").focus();
+							let question = $(x_currentPageXML).children()[qNo+1];
+							let answers = question.getAttribute("answer").split(answerDelimeter);
+							XTEnterInteraction(x_currentPage, qNo+1, 'fill-in', question.getAttribute("question"), answers, answers, null /* never used*/, x_currentPageXML.getAttribute("grouping"));
+							$pageContents.data("currentQ", qNo + 1);
+						}
+					}
+					// this is needed as if this is triggered via keypress in IE/Opera it's triggered twice so messes up no. attempts
+					if ($this.data("pause") == true) {
+						$this.data({
+							"click":	false,
+							"pause":	false
+						});
+						setTimeout(function () {
+							$this.data("click", true)
+						}, 1);
+					}
+				});
+
+			$("#pageContents input").keypress(function(e) {
+				if ((e.keyCode ? e.keyCode : e.which) == 13) { // return key
+					$("#submitBtn")
+						.data({
+							"click":	true,
+							"pause":	true
+						})
+						.trigger("click");
+				}
+			});
+			
+			this.sizeChanged();
+			x_pageLoaded();
+		}
+	}
+
+	dialog.init();
+
+</script>
+
+
+<div id="pageContents">
+
+	<div class="splitScreen">
+
+		<div id="textHolder" class="left"></div>
+
+		<div id="infoHolder" class="right">
+			<div class="panel" tabindex="0">
+				<div id="questionGroup">
+					<div class="question">
+						<label></label>
+						<span class="tickTxt ui-helper-hidden-accessible" aria-live="polite"></span><span class="result fa fa-fw fa-x-tick"></span>
+						<input/>
+					</div>
+
+				</div>
+				<button id="submitBtn"></button>
+				<p id="feedback" aria-live="polite"></p>
+			</div>
+		</div>
+
+	</div>
+
+</div>

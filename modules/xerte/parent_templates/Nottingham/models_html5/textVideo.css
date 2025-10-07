@@ -1,0 +1,54 @@
+/* textVideo.html */
+	
+	#textHolder {
+		padding-bottom:	20px;
+	}
+
+	#x_mainHolder.x_mobile #pageContents .mobileAlign + #textHolder {
+		padding: 1em 0 0;
+	}
+	
+	.transcriptHolder {
+		margin-top:	10px;
+		text-align:	right;
+	}
+	
+	.transcript {
+		text-align:		left;
+		min-width:100%;
+	}
+	
+	#pageVideo.iframe {
+		position: relative;
+		overflow: hidden;
+	}
+
+	#x_pageHolder.full #pageVideo {
+		position: static;
+	}
+	
+	#pageVideo.iframe iframe,
+	#x_pageHolder.full #pageVideo iframe {
+		position: absolute;
+		top:0;
+		left: 0;
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	#x_pageHolder.full #pageVideo:not(.embed):not(.iframe) {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	#x_pageHolder.full {
+		overflow: hidden;
+	}
+	
+	.x_mobile .mobileAlign .panel.inline {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	

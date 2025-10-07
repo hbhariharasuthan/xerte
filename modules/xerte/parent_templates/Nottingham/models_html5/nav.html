@@ -1,0 +1,617 @@
+<script type="text/javascript">
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+	// pageChanged & sizeChanged functions are needed in every model file
+	// other functions for model should also be in here to avoid conflicts
+	var nav = new function() {
+		
+		// Called from xenith if tab level deeplinking is available
+		this.deepLink = function(item) {
+			if (x_currentPageXML.getAttribute("type") != "Col") {
+				if (x_currentPageXML.getAttribute("type") == "Slide") {
+					if ($.isNumeric(item)) {
+						nav.slideshowChange(parseInt(item, 10));
+					} else {
+						$(x_currentPageXML).children().each(function(i) {
+							if (item.toLowerCase() === this.getAttribute("name").toLowerCase()) {
+								nav.slideshowChange(i);
+								return false;
+							}
+						});
+					}
+				} else {
+					var $btns = x_currentPageXML.getAttribute("type") == "Button" ? $('.navChildTitle') : $('.navChildTitle a');
+					if ($.isNumeric(item) && $btns.eq(parseInt(item)).length > 0) {
+						$btns.eq(parseInt(item)).click();
+					} else {
+						$btns.each(function(i) {
+							if (item.toLowerCase() === $(this).text().toLowerCase()) {
+								$(this).click();
+								return false;
+							}
+						});
+					}
+				}
+			}
+		}
+		
+		// function called every time the size of the LO is changed
+		this.sizeChanged = function() {
+			if (x_currentPageXML.getAttribute("type") != "Col" && x_browserInfo.mobile == false && x_currentPageXML.getAttribute("panelHeight") != "fit") {
+				if (x_currentPageXML.getAttribute("type") == "Acc") {
+					$("#infoHolder")
+						.height(x_getAvailableHeight([$("#infoHolder")]))
+						.accordion("refresh");
+				} else if (x_currentPageXML.getAttribute("type") == "Tab") {
+					var $infoHolder = $("#infoHolder"),
+						$paneHolder = $("#paneHolder");
+					
+					$infoHolder
+						.height(x_getAvailableHeight([$infoHolder]))
+						.tabs("refresh");
+					
+					$paneHolder.height(x_getAvailableHeight([$infoHolder], [$("#tabHolder")]));
+					$paneHolder.find(".navChild").height(x_getAvailableHeight([$infoHolder, $paneHolder.find(".navChild")], [$("#tabHolder")]));
+					
+				} else {
+					var $panel = $("#navHolder .panel").length > 0 ? $("#navHolder .panel") : $("#pageContents > div.panel");
+					$("#infoHolder").height(x_getAvailableHeight([$("#infoHolder"), $panel], [$("#btnHolder")]));
+				}
+			}
+			
+			this.resizeMedia();
+		}
+		
+		// function resizes media controls
+		this.resizeMedia = function() {
+			// resize if the media is now the wrong size for its holder
+			// this is done by manually triggering the window resize event (mediaelement.js listens to this event)
+			
+			if ($("iframe.navMedia").length > 0 && x_currentPageXML.getAttribute("type") != "Tab" && x_currentPageXML.getAttribute("type") != "Acc") {
+				// manually resize height of iframes
+				$("iframe.navMedia").height($("#infoHolder").height() - 12);
+			}
+			
+			$(".navChild:visible .navMedia.video, .navChild:visible .navMedia.audio").each(function(i) {
+				
+				var availSpace = $("#infoHolder").width() - parseInt($(this).closest(".navChild").css('padding-left')) - parseInt($(this).closest(".navChild").css('padding-right'));
+				
+				if ($(this).hasClass("audio")) {
+					var audioBarW = 0;
+					$(this).find(".mejs-inner").find(".mejs-controls").children().each(function() {
+						audioBarW += $(this).outerWidth();
+					});
+					
+					//var availSpace = $("#infoHolder").width() - parseInt($(this).closest(".navChild").css('padding-left')) - parseInt($(this).closest(".navChild").css('padding-right'));
+					if (audioBarW > availSpace || audioBarW < availSpace - 50) {
+						$x_window.resize();
+						return false;
+					}
+				} else {
+					var $video = $(this).find('video'),
+						$videoDiv = $(this).find('.mejs-video');
+					
+					if ($videoDiv.width() > availSpace || ($videoDiv.width() < availSpace - 50 && ($video.data('width') == 0 || $videoDiv.width() < $video.data('width')))) {
+						$x_window.resize();
+						return false;
+					}
+				}
+			});
+
+			// ensure images aren't too tall
+			$(".paneImg").each(function() {
+				var $this = $(this);
+				var parentH = x_currentPageXML.getAttribute("type") == "Acc" || x_currentPageXML.getAttribute("type") == "Tab" ? $this.parents(".navChild").height() :
+						x_currentPageXML.getAttribute("type") == "Button" || x_currentPageXML.getAttribute("type") == "Slide" ? $this.parents("#infoHolder").height() :
+						x_getAvailableHeight(); // columns
+
+				$this.css({
+					"max-width": $this.parents(".navChild").width() - ($this.outerWidth(true) - $this.width()),
+					"max-height": parentH - ($this.outerHeight(true) - $this.height()) - ($this.parents("figure").length > 0 ? $this.parents("figure").find("figcaption").outerHeight(true) : 0)
+				});
+			});
+		}
+
+		// Loads popcorn, then calls setup.
+		this.init = function() 
+		{
+			var popLocation = "common_html5/js/popcorn/"
+			var scriptsToLoad = ["popcorn-complete", "plugins/popcorn.mediaconstructor"];
+			var i = 0;
+			if (!xot_offline) {
+				scriptsToLoad.forEach(function (file) {
+					$.getScript(x_templateLocation + popLocation + file + ".js")
+							.done(function () {
+								if (++i >= scriptsToLoad.length)
+									nav.setUp();
+							})
+							.fail(function (jqxhr, settings, exception) {
+								console.log("Failed to load plugin:" + exception);
+							});
+				});
+			}
+			else {
+				nav.setUp();
+			}
+		}
+		
+		this.setUp = function() {
+			var $pageContents = $('#pageContents'),
+				$textHolder = $('#textHolder'),
+				$navHolder = $('#navHolder');
+			
+			$pageContents.addClass(x_currentPageXML.getAttribute("type").toLowerCase());
+			
+			// set up basic structure of page - different for each navigator type
+			if (x_currentPageXML.getAttribute("type") != "Col") {
+				
+				var $navHolderInner = $('<div/>');
+				if (x_currentPageXML.getAttribute("type") != "Acc" && x_currentPageXML.getAttribute("type") != "Tab") {
+					$navHolderInner.addClass('panel');
+				}
+				
+				var panelWidth = x_currentPageXML.getAttribute("panelWidth") == undefined ? "Medium" : x_currentPageXML.getAttribute("panelWidth");
+				
+				// full width - get rid of everything else
+				if (panelWidth == "Full") {
+					$navHolderInner.appendTo($pageContents);
+					$textHolder.remove();
+					$navHolder.remove();
+					
+				} else {
+					$textHolder.html(x_addLineBreaks(x_currentPageXML.getAttribute("text")));
+					
+					$navHolderInner.appendTo($navHolder);
+					
+					var $splitScreen = $('<div class="splitScreen"/>');
+					
+					$splitScreen
+						.prependTo($pageContents)
+						.append($textHolder)
+						.append($navHolder);
+					
+					// panel layout (left/right small/medium/large)
+					if (x_currentPageXML.getAttribute("panelPos") == "Left") {
+						$textHolder.addClass('right');
+						$navHolder
+							.prependTo($splitScreen)
+							.addClass('left');
+					} else {
+						$textHolder.addClass('left');
+						$navHolder.addClass('right');
+					}
+					
+					if (panelWidth == "Small") {
+						$("#pageContents .splitScreen").addClass(x_currentPageXML.getAttribute("panelPos") == "Left" ? "medium" : "large");
+					} else if (panelWidth == "Large") {
+						$("#pageContents .splitScreen").addClass(x_currentPageXML.getAttribute("panelPos") == "Left" ? "xlarge" : "small");
+					} else {
+						$("#pageContents .splitScreen").addClass(x_currentPageXML.getAttribute("panelPos") == "Left" ? "large" : "medium");
+					}
+				}
+				
+				// set up all the html elements
+				var $infoHolder = $('<div id="infoHolder"/>').appendTo($navHolderInner);
+				
+				if (x_currentPageXML.getAttribute("type") == "Slide") {
+					$(x_currentPageXML).children().each(function(i) {
+						$infoHolder.append('<div class="panelPage" aria-roledescription="' + x_getLangInfo(x_languageData.find("carousel")[0], "slide", "Slide") + '"><h3 class="navChildTitle" id="navChildTitle' + i + '"></h3><div id="navChild' + i + '" class="navChild"></div></div>');
+					});
+					
+					var $btnHolder = $('<div id="btnHolder"><p id="slideTxt" aria-live="polite"></p><div id="btns"><button id="prevBtn">1</button><button id="nextBtn">2</button></div><div class="clearBoth"></div></div>');
+					
+					if (x_currentPageXML.getAttribute("buttonPos") != "Top" && x_browserInfo.mobile != true) {
+						$btnHolder.appendTo($navHolderInner);
+					} else {
+						$btnHolder
+							.prependTo($navHolderInner)
+							.addClass("top");
+					}
+					
+				} else if (x_currentPageXML.getAttribute("type") == "Button") {
+					// treat the button navigation as a tabbed navigator for accessibility
+					// i.e. keyboard controls & info read to screen readers will be the same as those for tabbed navigator
+					$navHolderInner.attr("role", "tablist");
+					
+					var $btnHolder = $('<div id="btnHolder"></div>');
+					if (x_currentPageXML.getAttribute("buttonPos") != "Bottom" || x_browserInfo.mobile == true) {
+						$btnHolder.prependTo($navHolderInner);
+					} else {
+						$btnHolder
+							.appendTo($navHolderInner)
+							.addClass("bottom");
+					}
+					
+					$(x_currentPageXML).children().each(function(i) {
+						$btnHolder.append('<button id="navChildTitle' + i + '" class="navChildTitle" role="tab" aria-selected="false" aria-controls="navChild' + i + '" tabindex="-1"></button>');
+						$infoHolder.append('<div id="navChild' + i + '" class="navChild" role="tabpanel" aria-labelledby="navChildTitle' + i + '"/>');
+					});
+					
+				} else if (x_currentPageXML.getAttribute("type") == "Acc") {
+					$(x_currentPageXML).children().each(function(i) {
+						$infoHolder.append('<h3 class="navChildTitle"><a id="navChildTitle' + i + '" href="#" tabindex="-1"></a></h3> <div id="navChild' + i + '" class="navChild"></div>');
+					});
+
+				} else if (x_currentPageXML.getAttribute("type") == "Tab") {
+					var $tabHolder = $('<ul id="tabHolder"/>').appendTo($infoHolder),
+						$paneHolder = $('<div id="paneHolder" />').appendTo($infoHolder);
+					
+					$(x_currentPageXML).children().each(function(i) {
+						$tabHolder.append('<li class="navChildTitle"><a id="navChildTitle' + i + '" href="#navChild' + i + '"></a></li>');
+						$paneHolder.append('<div id="navChild' + i + '" class="navChild" tabindex="0"/>');
+					});
+				}
+				
+			// column page
+			} else {
+				if (x_currentPageXML.getAttribute("text") == "") {
+					$textHolder.remove();
+				} else {
+					$textHolder.html(x_addLineBreaks(x_currentPageXML.getAttribute("text")));
+				}
+				
+				// set up column contents
+				$(x_currentPageXML).children().each(function(i) {
+					$navHolder.append('<div id="navChild' + i + '" class="navChild">' + (this.getAttribute("name") != "" ? '<h3 id="navChildTitle' + i + '" class="navChildTitle"></h3>' : '') + '</div>');
+				});
+				
+				if (x_browserInfo.mobile == false) {
+					var numColumns = $(x_currentPageXML).children().length,
+						spacerWidth = (numColumns - 1) * 2, // 2% gap between columns
+						columnWidth = Math.floor((100 - spacerWidth) / numColumns),
+						edgeWidth = Math.floor((100 - spacerWidth - (columnWidth * numColumns)) / 2);
+					
+					$navHolder.find(".navChild")
+						.addClass("x_floatLeft")
+						.css({
+							width : columnWidth + "%",
+							"padding-left" : "2%"
+						});
+					
+					$navHolder.find(".navChild:first").css("padding-left", edgeWidth + "%");
+					$navHolder.find(".navChild:last").css("padding-right", edgeWidth + "%");
+					
+				}
+			}
+			
+			// add content to each column/pane
+			$(x_currentPageXML).children().each(function(i) {
+				
+				// column/pane text
+				$("#navChildTitle" + i).html(this.getAttribute("name"));
+				var $navChild = $("#navChild" + i).append(x_addLineBreaks(this.getAttribute("text")));
+				
+				// column/pane media
+				if (this.getAttribute("url") != undefined && this.getAttribute("url") != "") {
+					
+					var $media,
+						fileExt = this.getAttribute("url").split('.').pop().toLowerCase();
+					
+					// audio
+					if (fileExt == "mp3") {
+						$media = $('<div id="navAudio"+i class="navMedia audio"></div>');
+						
+						$media.data({
+							source: this.getAttribute("url"),
+							title: this.getAttribute("tip") != undefined && this.getAttribute("tip") != "" ? this.getAttribute("tip") : '',
+							transcript: this.getAttribute("transcript") != undefined && this.getAttribute("transcript") != "" ? this.getAttribute("transcript") : false
+						});
+						
+					// image
+					} else if (fileExt == "jpeg" || fileExt == "jpg" || fileExt == "png" || fileExt == "gif") {
+						if (this.getAttribute("caption") != undefined && this.getAttribute("caption") != "") {
+							$media = $('<figure class="navMedia"><img class="paneImg" src="' + this.getAttribute("url") + '" ' + (this.getAttribute("tip") != undefined && this.getAttribute("tip") != "" ? 'alt="' + this.getAttribute("tip") + '"' : '') + '/><figcaption>' + this.getAttribute("caption") + '</figcaption></figure>');
+						} else {
+							$media = $('<div class="navMedia"><img class="paneImg" src="' + this.getAttribute("url") + '" ' + (this.getAttribute("tip") != undefined && this.getAttribute("tip") != "" ? 'alt="' + this.getAttribute("tip") + '"' : '') + '/></div>');
+						}
+						
+					// iframe
+					} else if (this.getAttribute("url").substr(0,7) == "<iframe") {
+						if ($(this.getAttribute("url")).first().is("[srcdoc]") == false) {
+							$media = $(this.getAttribute("url")).first();
+							$media
+								.removeAttr('width')
+								.removeAttr('height')
+								.addClass('navMedia');
+						}
+						
+					// uploaded video / youtube / vimeo
+					} else if (fileExt == "mp4" || x_isYouTubeVimeo(this.getAttribute("url")) != false) {
+						$media = $('<div id="navMedia_' + i + '" class="navMedia video"></div>');
+						
+						$media.data({
+							source: this.getAttribute("url"),
+							title: this.getAttribute("tip") != undefined && this.getAttribute("tip") != "" ? this.getAttribute("tip") : ''
+						});
+						
+						var yt = x_isYouTubeVimeo(this.getAttribute("url"));
+						if (yt != false) {
+							$media.addClass(yt);
+						}
+					}
+					
+					if ($media != "" && $media != undefined) {
+						if (this.getAttribute("align") == "Bottom") {
+							$media.appendTo($navChild);
+						} else if ($navChild.find('.navChildTitle').length > 0) {
+							$media.insertAfter($navChild.find('.navChildTitle'));
+						} else {
+							$media.prependTo($navChild);
+						}
+
+						if ($media.hasClass('video')) {
+							this.popcornInstance = nav.loadMedia($media, "video", {	
+								tip: $media.data('title'),
+								width: "100%",
+								height: "100%",
+								media: $media.data('source'),
+								autoplay: false,
+								pageName: "nav",
+								trackMedia: true
+							});
+						} else if ($media.hasClass('audio')) {
+							this.popcornInstance = loadMedia($media, "audio",
+							{	
+								tip: $media.data('title'),
+								width: "100%",
+								height: "100%",
+								media: $media.data('source'),
+								autoplay: false,
+								pageName: "nav",
+								trackMedia: false
+							}, 	true);
+							
+							// manually add a transcript button to the end of the audio bar
+							if ($media.data('transcript') !== false) {
+								x_addAudioTranscript($media, $media.data('transcript'));
+							}
+						}
+					}
+				}
+				
+				// type specific stuff
+				if (x_currentPageXML.getAttribute("type") == "Acc") {
+					$("#navChildTitle" + i).parent('.navChildTitle').data("name", this.getAttribute("name"));
+					
+				} else if (x_currentPageXML.getAttribute("type") == "Tab") {
+					$("#navChildTitle" + i).parent('.navChildTitle').attr("aria-hidden", "false");
+				}
+			});
+			
+			resizeEmbededMedia($(".popcornMedia.embed"), {width: "100%", height: "100%"});
+
+			// set up interactions to change nested page
+			if (x_currentPageXML.getAttribute("type") == "Acc") {
+				
+				$("#infoHolder").accordion({
+					icons: {
+						header: "fa fa-x-acc-hide",
+						activeHeader: "fa fa-x-acc-show"
+					},
+					collapsible: x_currentPageXML.getAttribute("collapsible") == "true" ? true : false,
+					active: x_currentPageXML.getAttribute("collapsible") == "true" ? false : 0,
+					heightStyle: x_currentPageXML.getAttribute("panelHeight") != "fit" && x_browserInfo.mobile != true ? "fill" : "content",
+					activate: function(e, ui) {
+						ui.newPanel.find('.navMedia.audio .mejs-inner').show();
+						nav.resizeMedia();
+
+						// if accordion is opened because of deep link, there may be more than one accordion heading that can be tabbed to - force tabindex on all other headings to be off
+						if (ui.oldHeader.length == 0 && $("#infoHolder .navChildTitle[tabindex=0]").not(ui.newHeader).length > 0) {
+							$("#infoHolder .navChildTitle[tabindex=0]").not(ui.newHeader).attr("tabindex", "-1")
+						}
+
+						ui.oldPanel
+							.data("height", ui.oldPanel.height())
+							.css({ display: "block", height: "0px;" }) // it won't do scrollTop when display is none
+							.scrollTop(0)
+							.css({ display: "none", height: ui.oldPanel.data("height") });
+					},
+					beforeActivate: function(e, ui) {
+						ui.newPanel.scrollTop(0);
+						ui.newPanel.find('.navMedia.audio .mejs-inner').hide();
+					}
+				})
+
+				$("#infoHolder .navChildTitle").keydown(function(e) {
+					const charCode = e.charCode || e.keyCode;
+					if (charCode == 37 || charCode == 38) {
+						// left/up arrow key - focus on previous button & select
+						if ($(this).prevAll(".navChildTitle").length != 0) {
+							$(this).prevAll(".navChildTitle").first().focus().click();
+						} else {
+							$(this).parent().find("h3:last-of-type").focus().click();
+						}
+					} else if (charCode == 39 || charCode == 40) {
+						// right/down arrow key - focus on next button & select
+						if ($(this).nextAll(".navChildTitle").length != 0) {
+							$(this).nextAll(".navChildTitle").first().focus().click();
+						} else {
+							$(this).parent().find("h3:first-of-type").focus().click();
+						}
+					}
+				})
+				
+			} else if (x_currentPageXML.getAttribute("type") == "Button") {
+				$('.navChild').hide();
+				
+				$('.navChildTitle')
+					.button()
+					.attr("role", "tab")
+					.on("click", function() {
+						var $thisNavChild = $('#navChild' + $(this).index());
+						if ($thisNavChild.is(":hidden")) {
+							var $oldSelected = $("#btnHolder .navChildTitle:eq(" + $("#infoHolder .navChild:visible").index() + ")");
+							$oldSelected
+								.attr({
+									"aria-selected": "false",
+									"tabindex": "-1"
+								})
+								.removeClass("selected");
+
+							var $newSelected = $("#btnHolder .navChildTitle:eq(" + $thisNavChild.index() + ")");
+							$newSelected
+								.attr({
+									"aria-selected": "true",
+									"tabindex": "0"
+								})
+								.addClass("selected");
+
+							$('.navChild').hide();
+							$thisNavChild.show();
+							nav.resizeMedia();
+							$("#infoHolder").scrollTop(0);
+						}
+					})
+					.keydown(function (e) {
+						const charCode = e.charCode || e.keyCode;
+						if (charCode == 37 || charCode == 38) {
+							// left/up arrow key - focus on previous button & select
+							if ($(this).prev().length != 0) {
+								$(this).prev().focus().click();
+							} else {
+								$(this).parent().find("button:last-of-type").focus().click();
+							}
+						} else if (charCode == 39 || charCode == 40) {
+							// right/down arrow key - focus on next button & select
+							if ($(this).next().length != 0) {
+								$(this).next().focus().click();
+							} else {
+								$(this).parent().find("button:first-of-type").focus().click();
+							}
+						}
+					});
+				
+				$('.navChildTitle:eq(0)').click();
+				
+			} else if (x_currentPageXML.getAttribute("type") == "Slide") {
+				$('.panelPage').hide();
+				
+				$("#pageContents").data({
+					"slideTxt": x_currentPageXML.getAttribute("slideCount") == undefined || x_currentPageXML.getAttribute("slideCount") == "" ? "Slide {i} of {n}" : x_currentPageXML.getAttribute("slideCount"),
+					"totalPages": $("#infoHolder .panelPage").length,
+					"currentPage": -1
+				});
+				
+				$("#prevBtn")
+					.button({
+						icons: { primary: "fa fa-x-prev" },
+						label: x_currentPageXML.getAttribute("prevBtnTip") == undefined || x_currentPageXML.getAttribute("prevBtnTip") == "" ? "Previous" : x_currentPageXML.getAttribute("prevBtnTip"),
+						text: false
+					})
+					.click(function() {
+						nav.slideshowChange($("#pageContents").data("currentPage") - 1);
+					});
+				
+				$("#nextBtn")
+					.button({
+						icons: { primary: "fa fa-x-next" },
+						label: x_currentPageXML.getAttribute("nextBtnTip") == undefined || x_currentPageXML.getAttribute("nextBtnTip") == "" ? "Next" : x_currentPageXML.getAttribute("nextBtnTip"),
+						text: false
+					})
+					.click(function() {
+						nav.slideshowChange($("#pageContents").data("currentPage") + 1);
+					})
+					.trigger("click");
+				
+				if ($("#pageContents").data("totalPages") < 2) {
+					$("#btnHolder").remove();
+				}
+				
+			} else if (x_currentPageXML.getAttribute("type") == "Tab") {
+				$("#infoHolder").tabs({
+					heightStyle: x_currentPageXML.getAttribute("panelHeight") != "fit" && x_browserInfo.mobile != true ? "fill" : "content",
+					activate: function(e, ui) {
+						ui.newPanel.find('.navMedia.audio .mejs-inner').show();
+						nav.resizeMedia();
+						ui.newPanel.scrollTop(0);
+					},
+					beforeActivate: function(e, ui) {
+						ui.newPanel.find('.navMedia.audio .mejs-inner').hide();
+					}
+				});
+				
+			}
+			
+			this.sizeChanged();
+			
+			x_pageLoaded();
+		}
+
+		this.loadMedia = function($holder, type, data) {
+			this.popcornInstance = loadMedia($holder, type, data);
+		}
+		
+		this.slideshowChange = function(newPage) {
+			var $pageContents = $("#pageContents"),
+				$prevBtn = $("#prevBtn"),
+				$nextBtn = $("#nextBtn");
+			
+			var prevPage = $pageContents.data("currentPage");
+			$pageContents.data("currentPage", newPage);
+			$("#infoHolder").scrollTop(0);
+			$("#infoHolder .panelPage:visible").hide();
+			$("#infoHolder .panelPage:eq(" + newPage + ")").show();
+			$("#slideTxt").html($pageContents.data("slideTxt").replace("{i}", newPage + 1).replace("{n}", $pageContents.data("totalPages")));
+			
+			nav.resizeMedia();
+			
+			if (newPage == 0) {
+				$prevBtn.button("disable").removeClass("ui-state-focus").removeClass("ui-state-hover");
+				$nextBtn.button("enable");
+			} else if (newPage + 1 == $pageContents.data("totalPages")) {
+				$prevBtn.button("enable");
+				$nextBtn.button("disable").removeClass("ui-state-focus").removeClass("ui-state-hover");
+			} else {
+				$prevBtn.button("enable");
+				$nextBtn.button("enable");
+			}
+		}
+		
+		this.mediaMetadata = function($video, wh) {
+			$video.data({
+				width: wh[0],
+				height: wh[1]
+			});
+			
+			$video.closest(".mejs-video").css({
+				"maxWidth": wh[0],
+				"maxHeight": wh[1]
+			});
+			
+			this.sizeChanged();
+		}
+
+		this.leavePage = function () {
+			document.dispatchEvent(new Event('leavepage'));
+		}
+	}
+	
+	nav.init();
+	
+</script>
+
+
+<div id="pageContents">
+	
+	<div id="textHolder"></div>
+	
+	<div id="navHolder"></div>
+	
+</div>

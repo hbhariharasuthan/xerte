@@ -1,0 +1,34 @@
+/* bleedingImage.html */
+	
+	#textHolder {
+		padding-bottom:	20px;
+	}
+	
+	#textHolder p:first-child {
+		margin-top:	0px;
+	}
+	
+	.noBorder {
+		display:	inline-block;
+		margin:		0px;
+	}
+	
+	#pageContents a #linkImg {
+		border:	2px solid transparent;
+	}
+	
+	#pageContents a:focus #linkImg {
+		border-color:	blue;
+	}
+	
+	#x_pageDiv .x_floatLeft.noBorder, #x_pageDiv .x_floatRight.noBorder {
+		padding-top: 0;
+	}
+
+	#imgHolder .x_floatLeft figcaption {
+		margin-left: .1em;
+	}
+
+	#imgHolder .x_floatRight figcaption {
+		margin-right: .1em;
+	}

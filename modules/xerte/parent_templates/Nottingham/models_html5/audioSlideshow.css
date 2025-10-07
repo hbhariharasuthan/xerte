@@ -1,0 +1,22 @@
+/* audioSlideshow.html */
+	
+	#infoHolder {
+		overflow:	auto;
+	}
+	
+	#pageContents .pageImg {
+		text-align: center;
+	}
+
+	#pageContents .padBottom {
+		padding-bottom: 1em;
+	}
+
+	#pageContents .padTop {
+		padding-bottom: 1em;
+	}
+
+	.slide .slideTxt {
+		padding-bottom: 1em;
+	}
+

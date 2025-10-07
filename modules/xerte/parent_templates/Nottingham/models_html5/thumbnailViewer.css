@@ -1,0 +1,177 @@
+/* thumbnailViewer.html */
+
+	#x_pageDiv {
+		position: relative;
+	}
+
+	#thumbBar {
+		position:	absolute;
+		top:		10px;
+		left:		0px;
+		width:		100%;
+		height:		110px;
+	}
+	
+	#thumbOverlayLeft, #thumbOverlayRight {
+		position:		absolute;
+		width:			6em;
+		height:			100%;
+	}
+	
+	#thumbOverlayLeft {
+		background:	white;
+	}
+	
+	#thumbOverlayRight {
+		right:	0;
+		background:	white;
+	}
+	
+	#thumbHolder {
+		position:			absolute;
+		width:				100%;
+		height:				100%;
+		overflow:			hidden;
+		white-space:		nowrap;
+		/* hide scrollbar IE, Edge, FF */
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* hide scrollbar Chrome, Safari, Opera */
+	#thumbHolder::-webkit-scrollbar {
+		display: none;
+	}
+	
+	#thumbHolder .thumbBox {
+		display:			inline-block;
+		width:				90px;
+		height:				90px;
+		margin-top:			5px;
+		padding:			3px;
+		border:				2px solid transparent;
+		text-decoration:	none;
+	}
+	
+	#thumbHolder .thumbBox.selected {
+		border-color:	yellow;
+	}
+	
+	#thumbHolder .thumbBox img {
+		border-width:	0px; /* IE8 fix */
+		position:		absolute;
+		top:			50%;
+	}
+	
+	
+	#prevBtn {
+		float:		left;
+		z-index:	5;
+	}
+	
+	#nextBtn {
+		float:	right;
+	}
+	
+	/* over ride default jquery button styles */
+	#thumbBar button {
+		background:		none;
+		border:			none;
+		width:			6em;
+		height:			100%;
+		margin-right:	0;
+	}
+	
+	#thumbBar button .ui-icon {
+		width:		40px;
+		height:		40px;
+		position:	absolute;
+		top:		0.85em;
+		left:		0.5em;
+		margin:		0px;
+		background: none;
+		text-indent: 0;
+		font-size: 3em;
+		font-family: "Font Awesome 5 Free";
+		font-weight: 900;
+		overflow: visible;
+	}
+	
+	#thumbBar button { color: #434343; }
+	#thumbBar button:hover, #thumbBar button:focus { color: #666666; }
+	#thumbBar button:active { color: #FF9900; }
+	
+	#thumbBar button.ui-state-hover .ui-icon, #thumbBar button.ui-state-focus .ui-icon, #thumbBar button.ui-state-active .ui-icon {
+		background-position: -6em 0px;
+	}
+	
+	#thumbBar .ui-icon.prev:before {
+		content: "\f137";
+	}
+	
+	#thumbBar .ui-icon.next:before {
+		content: "\f138";
+	}
+	
+	#mainInfoHolder, #mainTxt {
+		margin-top:	130px;
+	}
+	
+	#mainInfoHolder {
+		position:	absolute;
+		top:		10px;
+		left:		0px;
+		width:		100%;
+		visibility:	hidden;
+		text-align:	center;
+	}
+	
+	#panelLink img {
+		border-style:	none;
+	}
+	
+	#panelTxt {
+		position:	absolute;
+		top:		10px;
+		overflow:	auto;
+	}
+	
+	#panelTxt div {
+		position:			absolute;
+		top:				0px;
+		padding:			6px;
+		margin:				0px;
+		background-color:	#010101;
+		color:				white;
+		text-align:			left;
+	}
+	
+	#panelTxt.bottom p {
+		top:	auto;
+		bottom:	0px;
+	}
+	
+	#imgCloseBtn {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		margin: 0;
+	}
+	
+	#mainPanel {
+		position: relative;
+	}
+	
+	#panelTxt .x_glossary {
+		color: #ffffff;
+	}
+
+	.featherlight-inner #panelImg {
+		max-width: 100%;
+	}
+
+	.featherlight-inner #panelTxt, .featherlight-inner #panelTxt div {
+		position: relative;
+		top: auto;
+	}
+	

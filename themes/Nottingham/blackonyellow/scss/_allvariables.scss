@@ -1,0 +1,66 @@
+//*define color pallette*/
+
+$yellow: #FFFF99;
+$midlightyellow: darken($yellow, 15%);
+$midyellow: darken($yellow, 35%);
+$darkyellow: darken($yellow, 50%);
+$darkestyellow: darken($yellow, 65%);
+$blackordarkest: #000000;
+$contrastcolor: #FFFF00;
+
+$accent1: darken(#33CC33,20%);
+$accent2: darken(#00FFFF,20%);
+$accent3: darken(#FF0000,20%);
+$accent4: #FF9900;
+$accent5: #6600FF;
+$accent6: darken(#FFFF00,10%);
+
+$green: $accent1;
+$red: $accent3;
+$blue: $accent5;
+
+$bodybackgroundcolor: $yellow;
+$defaultpagebackground: $yellow;
+$headerbackgroundcolor: $blackordarkest;
+$footerbackgroundcolor: $blackordarkest;
+$panelcolor: $yellow;
+$bordercolor: $blackordarkest;
+
+$mainfontcolour: $blackordarkest;
+$headerfontcolor: $yellow;
+$headerhoverfontcolor: $midyellow;
+$footerfontcolor: $yellow;
+$footerhoverfontcolor: $midyellow;
+
+$linkcolor: $mainfontcolour;
+$linkvisited: $mainfontcolour;
+$linkhover: $darkestyellow;
+
+$btnbackgroundcolor: $yellow;
+$btntxtcolor: $blackordarkest;
+$btnhoverbackgroundcolor: $blackordarkest;
+$btnhovertxtcolor: $yellow;
+
+$iconBtn: $blackordarkest;
+$iconHoverBtn: $darkestyellow;
+
+$thumbSelect: $darkyellow;
+
+$labelhovercolor: $blackordarkest;
+$labelfonthovercolor: $yellow;
+
+$progressBarColor: $yellow;
+$progressBarColorHeader: $darkyellow;
+
+/*set font family*/
+$mainfonts: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$secondaryfonts:Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+/*define rounded corner and other sizes*/
+$largeroundedcorners: 0;
+$mediumroundedcorners: 0;
+$smallroundedcorners: 0;
+$imageroundedcorners: none;
+$contentmargin: 2%;
+$interfaceboxshadow: none;
+$defaultpagepadding: 2%;

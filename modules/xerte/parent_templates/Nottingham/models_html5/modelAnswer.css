@@ -1,0 +1,41 @@
+/* modelAnswer.html */
+	
+	#pageContents .panel {
+		overflow:	auto;
+	}
+	
+	#pageContents button {
+		margin:		10px;
+		float:		right;
+	}
+	
+	#answer {
+		margin-top:	1em;
+	}
+	
+	#pageContents .panelImg {
+		text-align: center;
+		padding-top: 1em;
+	}
+	
+	#pageContents .panelImg img {
+		max-width: 65%;
+	}
+	
+	.x_mobile #pageContents .panelImg img {
+		max-width: 80%;
+	}
+	
+	#answerTxt {
+		display:	block;
+		width:		100%;
+		box-sizing: border-box;
+		resize:		vertical;
+		margin:	0.5em auto;
+	}
+	
+	#copyTxt {
+		color:		#b50202;
+		font-size:	0.8em;
+	}
+	

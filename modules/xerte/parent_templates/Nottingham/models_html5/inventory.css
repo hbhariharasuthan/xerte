@@ -1,0 +1,69 @@
+/* inventory.html */
+	
+	#mainTxt p:first-child, #feedbackTxt p:first-child {
+		margin-top:	0px;
+	}
+	
+	#infoHolder .panel {
+		overflow:	auto;
+	}
+
+	#optionHolder {
+		margin-top:	15px;
+	}
+
+	#optionHolder input {
+		float:		left;
+		display:	block;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	
+	#optionHolder .optionGroup {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	#optionHolder .optionTxt {
+		cursor:			pointer;
+		position:		relative;
+		margin-left:	2em;
+		display:		block;
+	}
+	
+	#qFeedback, #buttonHolder {
+		clear:		both;
+	}
+
+	#pageContents button {
+		margin-left:	10px;
+		float:			right;
+	}
+
+	#infoHolder .quizImgHolder {
+		padding:	5px;
+		float:		right;
+		max-width:	50%;
+	}
+	
+	#infoHolder .quizImg {
+		max-width:	100%;
+		height:		auto;
+	}
+	
+	#chartTitle {
+		text-align:	center;
+	}
+
+	.fbBlock h3 {
+		padding-top: .5em;
+	}
+
+	#qNo {
+		font-weight: bold;
+		padding-top: 0;
+	}
+
+	#qTxt {
+		padding: 0;
+	}

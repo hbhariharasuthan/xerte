@@ -1,0 +1,22 @@
+/* table.html */
+
+	#table {
+		width:	100%;
+	}
+	
+	#tableName {
+		text-align:		center;
+		font-weight:	bold;
+		margin-bottom:	10px;
+	}
+	
+	#footnote {
+		margin-top:	1em;
+		padding-top: 0.7em;
+		border-top: 1px solid #ccc;
+	}
+	
+	.x_mobile #tableHolder .panel.inline {
+		margin-left: 0;
+		margin-right: 0;
+	}

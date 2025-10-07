@@ -1,0 +1,40 @@
+/* dictation.html */
+
+	#pageContents .panel {
+		overflow:	auto;
+	}
+
+	#prompt, #count, #answer, #incorrect {
+		margin-bottom:	10px;
+	}
+
+	#count {
+		font-weight: bold;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	#audioHolder {
+		width:	100%;
+		margin-bottom:	10px;
+	}
+
+	#audioHolder audio {
+		width:	100%;
+	}
+
+	#answerTxt {
+		width:	100%;
+		margin-bottom:	10px;
+		box-sizing: border-box;
+	}
+
+	#btnHolder {
+		float:	right;
+		margin-bottom:	10px;
+	}
+	
+	#answer {
+		clear:	both;
+	}
+	

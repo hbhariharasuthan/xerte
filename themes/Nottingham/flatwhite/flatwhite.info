@@ -1,0 +1,6 @@
+name: flatwhite
+display name: Flat: White
+description: Flat white header and footer, white background and no border, round buttons.
+enabled: yes
+preview: flatwhite.jpg
+imgbtns: true

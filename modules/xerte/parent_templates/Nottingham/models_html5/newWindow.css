@@ -1,0 +1,11 @@
+/* newWindow.html */
+	
+	#textHolder p:first-child {
+		margin-top:	0px;
+	}
+
+	#imgHolder a.newWindowLink {
+		text-decoration: none;
+		color: inherit !important;
+		cursor:	pointer;
+	}

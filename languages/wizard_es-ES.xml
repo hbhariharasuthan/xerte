@@ -1,0 +1,154 @@
+<language name="Spanish" code="es-ES">
+    <layout closetooltip="Cerrar este panel" opentooltip="Abrir este panel" resizetooltip="Redimensionar este panel" />
+    <edit label="Editar ..." tooltip="Editar esta opción" description="Botón Editar" />
+    <insertDialog label="Insertar Nuevo {i}" preview="Vista Previa">
+        <insertBefore label="Antes" tooltip="Insertar antes de la página seleccionada"/>
+        <insertAfter label="Después" tooltip="Insertar después de la página seleccionada"/>
+        <insertAtEnd label="Al final" tooltip="Insertar como última página"/>
+    </insertDialog>
+    <btnSaveXerte label="Guardar" tooltip="Guardar Proyecto" description="Botón Guardar"/>
+	<btnPublishXot label="Publicar" tooltip="Publicar Proyecto" description="Botón Publicar"/>
+	<popupFileUpload title="Subir Archivo" cancelLabel="Cancelar"/>
+	<browseImportFile title="Seleccionar archivo a importar...">
+		<dialogFilter>Todos los Archivos|*.*|JPG|*.jpg|PNG|*.png|Archivos SWF|*.swf|Sonidos|*.mp3|Vídeos|*.flv</dialogFilter>
+		<buttontext>Importar</buttontext>
+	</browseImportFile>
+	<kblanguage title="Panel de Caracteres" tooltip="Panel de Caracteres" description="Distribución del Teclado">
+		<item>Francés</item>
+		<item>Alemán</item>
+		<item>Italiano</item>
+		<item>Polaco</item>
+		<item>Portugués</item>
+		<item>Español</item>
+	</kblanguage>
+	<newLink label="Nuevo {i}" />
+	<helpLink tooltip="Clic para Ayuda"/>
+    <btnAddColumn label="Agregar Columna" tooltip="Agregar una columna a la derecha de la grilla"/>
+    <btnDelColumn label="Eliminar Columna" tooltip="Eliminar la columna seleccionada"/>
+	<btnInsert label="Insertar" tooltip="Insertar"/>
+	<btnAddChild tooltip="agregar algunos hijos"/>
+	<btnDuplicate label="Copiar" tooltip="Duplicar"/>
+	<btnDelete label="Eliminar" tooltip="Eliminar"/>
+	<btnMoveUp tooltip="Mover Arriba"/>
+	<btnMoveDown tooltip="Mover Abajo"/>
+	<btnNext tooltip="Nuevo Artículo"/>
+	<btnPreview label="Reproducir" tooltip="Vista Previa"/>
+	<btnPrev tooltip="Artículo Anterior"/>
+	<icDelete tooltip="Eliminar" prompt="¿Eliminar el artículo?"/>
+	<addProp label="Agregar" tooltip="agregar" />
+	<optionalProp label="Propiedades Opcionales:"/>
+	<optionalPropHTML label="Propiedades Opcionales"/>
+	<chkShowLanguage label="Mostrar Opciones del Lenguaje" tooltip="Si las opciones del lenguaje están disponibles, mostrarlas."/>
+	<chkShowAdvanced label="Mostrar Opciones Avanzadas" tooltip="Si las opciones avanzadas están disponibles, mostrarlas."/>
+    <chkShowToolbar label="Mostrar Barras de Herramientas" tooltip="Mostrar todas las barras de herramientas por defecto."/>
+	<compMedia tooltip="Importar Multimedia"/>
+	<compPreview tooltip="Vista Previa"/>
+	<filemenu title="Archivo">
+		<menuNew>Nuev Proyecto...</menuNew>
+		<menuOpen>Abrir...</menuOpen>
+		<menuSave>Guardar</menuSave>
+		<menuExit>Salir</menuExit>
+	</filemenu>
+	<menuOpen title="Por favor seleccione un Proyecto">
+		<dialogText>Seleccionar un archivo</dialogText>
+		<filterList>*.rlt|*.mxml</filterList>
+		<filterText>Plantillas de Aprendizaje|*.rlt| Archivos MXML|*.mxml</filterText>
+	</menuOpen>
+	<viewmenu title="Ver">
+		<menuPreview>Vista Previa</menuPreview>
+	</viewmenu>
+	<publishmenu title="Publicar">
+		<menuPublish>Publicar</menuPublish>
+		<menuPackage>Paquete</menuPackage>
+	</publishmenu>
+	<menuPackage title="Guardar Paquete SCORM 1.2">
+		<dialogText>Seleccionar un archivo</dialogText>
+		<filterList>*.zip</filterList>
+		<filterText>Archivos Zip|*.zip</filterText>
+	</menuPackage>
+	<helpmenu title="Ayuda">
+		<menuHelp>Ayuda</menuHelp>
+	</helpmenu>
+	<menuHelp>
+		<prompt>Archivo de ayuda próximamente.</prompt>
+	</menuHelp>
+	<importMedia>
+		<filters>
+			<allfiles>Todos los Archivos (*.*)</allfiles>
+			<images>Imágenes (*.jpg, *.jpeg, *.png)</images>
+			<flash>Archivos Flash (*.swf)</flash>
+			<sound>Archivos de Sonido (*.mp3)</sound>
+			<video>Archivos de Vídeos (*.flv)</video>
+		</filters>
+		<title>Seleccionar un archivo para importar...</title>
+		<filter>Todos los Archivos|*.*|JPG|*.jpg|PNG|*.png|Archivos SWF|*.swf|Sonidos|*.mp3|Vídeos|*.flv</filter>
+		<btnimport>Importar</btnimport>
+		<btncancel>Cancelar</btncancel>
+		<fileexists>
+			<prompt>El archivo {f} ya existe.\r\r¿Sobreescribir este archivo?</prompt>
+			<title>Confirmar</title>
+		</fileexists>
+	</importMedia>
+	<Alert>
+		<oklabel>De acuerdo</oklabel>
+		<cancellabel>Cancelar</cancellabel>
+		<nolabel>No</nolabel>
+		<yeslabel>Sí</yeslabel>
+		<linkhandler>
+			<prompt></prompt>
+			<title>Ingrear la URL para el enlace</title>
+		</linkhandler>
+		<validate>
+			<max>
+				<prompt>Sólo puede agregar {m} {i}s</prompt>
+				<title>Error</title>
+			</max>
+			<mixedcontent>
+				<prompt>No puede mezclar contenido aquí.</prompt>
+				<title>Error</title>
+			</mixedcontent>
+		</validate>
+		<newproject>
+			<prompt>Esa carpeta no está vacía. ¿Está seguro que la quiere utilizar para el nuevo proyecto?</prompt>
+			<title>Confirmar</title>
+		</newproject>
+		<openproject>
+			<prompt>¿Desea abrir el nuevo proyecto?</prompt>
+			<title>Confirmar</title>
+		</openproject>
+		<initpreview>
+			<prompt>Debe seleccionar multimedia antes de poder previsualizarlo.</prompt>
+			<title>Información</title>
+		</initpreview>
+		<duplicateitem>
+			<prompt>No puede duplicar ese artículo.</prompt>
+			<title>Error</title>
+		</duplicateitem>
+		<deletenode>
+			<confirm>
+				<prompt>¿Desea eliminar el artículo?</prompt>
+				<title>Confirmación</title>
+			</confirm>
+			<error>
+				<prompt>No puede eliminar este artículo</prompt>
+				<title>Error</title>
+			</error>
+		</deletenode>
+		<savefile>
+			<prompt>No se pudo formatear el XML, y los cambios no han sido guardados. Compruebe sus cambios recientes.</prompt>
+		</savefile>
+        <exitwizard>
+            <prompt>Está a punto de abandonar el editor.</prompt>
+        </exitwizard>
+        <upload>
+            <successful>Se ha cargado con éxito</successful>
+            <failed>
+                <permissions>Error al cargar: Compruebe los permisos</permissions>
+                <HTTPError>Error al cargar: Error HTTP</HTTPError>
+                <IOError>Error al cargar: Error de Entrada/Salida</IOError>
+                <security>Error al cargar: Error de Seguridad</security>
+            </failed>
+        </upload>
+		
+	</Alert>
+</language>

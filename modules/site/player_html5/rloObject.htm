@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+<html lang="%LANGUAGE%" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    %TWITTERCARD%
+    <title>%TITLE%</title>
+    
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!--jquery-->
+    <script src="%TEMPLATEPATH%common/js/jquery-1.9.1.min.js%VERSION_PARAM%"></script>
+	
+       <!--popcorn js files-->
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/popcorn/plugins/MediasitePlayerControls.js"></script>
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/popcorn/plugins/MediasitePlayerIFrameAPI.js"></script>
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/popcorn/plugins/popcorn.mediaconstructor.js"></script>
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/popcorn/popcorn-complete.js"></script>
+
+    <!-- config of mediasite and peertube urls -->
+    %POPCORN_CONFIG%
+
+	<!-- for lightboxes and lightbox gallery-->
+    <script type="text/javascript" src="%TEMPLATEPATH%common/featherlight/featherlight.min.js%VERSION_PARAM%"></script>
+	<script type="text/javascript" src="%TEMPLATEPATH%common/featherlight/featherlight.gallery.min.js%VERSION_PARAM%"></script>
+	<link rel="stylesheet" href="%TEMPLATEPATH%common/featherlight/featherlight.min.css%VERSION_PARAM%" />
+	<link rel="stylesheet" href="%TEMPLATEPATH%common/featherlight/featherlight.gallery.min.css%VERSION_PARAM%" />
+
+    <!-- highlight - used by codesnippet plugin of ckeditor -->
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/highlight/js/highlight.pack.js%VERSION_PARAM%"></script>
+    <link rel="stylesheet" href="%TEMPLATEPATH%common/js/highlight/css/default.css%VERSION_PARAM%" />
+
+    <!--styles -->
+    <link href="%TEMPLATEPATH%common/css/bootstrap.css%VERSION_PARAM%" rel="stylesheet">
+    <link href="%TEMPLATEPATH%common/css/bootstrap-responsive.css%VERSION_PARAM%" rel="stylesheet">
+	<link href="%TEMPLATEPATH%common/css/fonts.css%VERSION_PARAM%" type="text/css" rel="stylesheet" />
+
+    <!--custom styles for this template-->
+    <link href="%TEMPLATEPATH%common/css/custom.css%VERSION_PARAM%" rel="stylesheet">
+
+    <!--font awesome-->
+    <!-- link rel="stylesheet" href="%TEMPLATEPATH%common/font-awesome-4.3.0/css/font-awesome.min.css"-->
+    <link href="%TEMPLATEPATH%common/fontawesome-6.6.0/css/all.min.css%VERSION_PARAM%" rel="stylesheet">
+    <link href="%TEMPLATEPATH%common/fontawesome-6.6.0/css/v4-shims.min.css%VERSION_PARAM%" rel="stylesheet">
+    <link href="%TEMPLATEPATH%common/fontawesome-6.6.0/css/v5-font-face.min.css%VERSION_PARAM%" rel="stylesheet">
+
+    <!--support for IE < 6-8 -->
+    <script src="%TEMPLATEPATH%common/js/html5shiv.js%VERSION_PARAM%"></script>
+
+    <!--media element and initialisation-->
+    <link rel="stylesheet" href="%TEMPLATEPATH%common/mediaelement/mediaelementplayer.min.css%VERSION_PARAM%" />
+    <script type="text/javascript" src="%TEMPLATEPATH%common/mediaelement/mediaelement-and-player.min.js%VERSION_PARAM%"></script>
+    <link rel="stylesheet" href="%TEMPLATEPATH%common/mediaelement/mediaelementplayer-legacy.min.css%VERSION_PARAM%" />
+
+    <!-- for audio & video players -->
+    <script type="text/javascript" src="%TEMPLATEPATH%common/js/mediaPlayerSite.js%VERSION_PARAM%"></script>
+
+    <script type="text/javascript">
+        var x_SiteUrl = "%SITEURL%";
+        var FileLocation = "%XMLPATH%";
+        var templateLocation = "%TEMPLATEPATH%";
+		var themePath = "%THEMEPATH%";
+        var x_TemplateId = "%TEMPLATEID%";
+        var x_youtube_api_key = "%YOUTUBEAPIKEY%";
+        var x_Version = "%VERSION%";
+        var projectXML = "%XMLFILE%"; //this is the file to read, not the xml
+        var x_lastUpdated = new Date("%LASTUPDATED%");
+        var x_dateCreated = new Date("%DATECREATED%");
+        var x_numPlays = String("%NUMPLAYS%");
+        var localeoptions = { year: 'numeric', month: 'short', day: 'numeric' };
+        try {
+            var x_lastUpdatedLocale = x_lastUpdated.toLocaleDateString("%LANGUAGE%", localeoptions);
+            var x_dateCreatedLocale = x_dateCreated.toLocaleDateString("%LANGUAGE%", localeoptions);
+        }
+        catch(e) {
+            var x_lastUpdatedLocale = x_lastUpdated.toLocaleDateString();
+            var x_dateCreatedLocale = x_dateCreated.toLocaleDateString();
+        }
+
+        var globalhidesocial="%GLOBALHIDESOCIAL%";
+        var globalsocialauth="%GLOBALSOCIALAUTH%";
+		%USE_URL%
+
+		var globalVars = {
+			lastUpdated: x_lastUpdatedLocale,
+			dateCreated: x_dateCreatedLocale,
+			numViews: x_numPlays
+		};
+    </script>
+
+    %TRACKING_SUPPORT%
+
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_HTMLorMML-full"></script>
+
+</head>
+
+<body data-twttr-rendered="true" data-spy="scroll" data-target="#contentTable">
+
+<!--facebookAPI-->
+<div id="fb-root"></div>
+<script src="%TEMPLATEPATH%common/js/initFB.js%VERSION_PARAM%" defer></script>
+
+<div id="aboveFooter">
+    <div id="alwaysTop"><a id="skipLink" class="skip-link srskip" href="#mainContent"></a></div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top hide" id="topnav" role="navigation">
+        <div class="navbar-inner">
+
+            <div class="container">
+
+                <button id="pageNavBtn" class="btn btn-navbar navbar-toggler collapsed" data-toggle="collapse" data-target=".nav-collapse" aria-haspopup="true" aria-controls="nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav" id="nav" aria-labelledby="pageNavBtn">
+                        <!--<li class=""><a href="./index.html">Home</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Learning Object Title-->
+    <header class="jumbotron hide" id="overview">
+        <div class="container">
+
+            <div class="logoL">
+                %LOGO_L%
+            </div>
+            <div class="logoR">
+                %LOGO_R%
+            </div>
+
+            <div class="titles">
+                <h1 id="pageTitle" aria-live="polite">Learning Object Title</h1>
+                <p id="pageSubTitle" aria-live="polite">Overview title for the content below</p>
+            </div>
+
+        </div>
+    </header>
+
+    <!--main page content: nav bar and sections-->
+    <div class="container">
+        <div class="row-fluid">
+            <!--navigation-->
+            <div class="span3 bs-docs-sidebar" id="contentTable" role="navigation">
+
+                <ul class="nav nav-list bs-docs-sidenav affix" id="toc">
+                    <!--<li><a href="#section1ID">Section 1</a></li>-->
+                </ul>
+            </div>
+
+            <!--content-->
+            <div class="span9" id="mainContent" role="main">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row-fluid">
+            <!--<div class="span12">
+				<div class="addthis_sharing_toolbox"></div>
+                %ADDTHISSCRIPT%
+            </div>-->
+            <div class="wcagLink hidden">
+                <a><img class="wcagLogo" height="32" src="%TEMPLATEPATH%common/img/wcag2.2AA-blue.png" width="88" alt=""> </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--bootstrap script-->
+
+<script src="%TEMPLATEPATH%common/js/bootstrap.js%VERSION_PARAM%"></script>
+
+<!--initialise the application specific code-->
+<script src="%TEMPLATEPATH%common/js/application.js%VERSION_PARAM%"></script>
+
+<script type="text/javascript" language="JavaScript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* change this file to rebrand your version of Xerte Online Toolkits */
+
+body {
+	font-family:	Arial, sans-serif;
+}
+
+#x_mainHolder {
+	border:		1px solid #010101;
+}
+
+#x_headerBlock {
+#x_headerBlock {
+	background: #010101; /* Old browsers */
+	background: -moz-linear-gradient(top,  #010101 0%, #010101 100%); /* FF3.6-15 */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#010101), color-stop(100%,#010101)); /* Chrome4-9,Safari4-5 */
+	background: -webkit-linear-gradient(top,  #010101 0%,#010101 100%); /* Chrome10-25,Safari5.1-6 */
+	background: -o-linear-gradient(top,  #010101 0%,#010101 100%); /* Opera 11.10-11.50 */
+	background: -ms-linear-gradient(top,  #010101 0%,#010101 100%); /* IE10 preview */
+	background: linear-gradient(to bottom,  #010101 0%,#010101 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010101', endColorstr='#010101',GradientType=0 ); /* IE6-9 */
+}
+}
+
+#x_footerBlock {
+	font-size:		1em;
+	color:			#FFFFFF;
+#x_headerBlock {
+	background: #010101; /* Old browsers */
+	background: -moz-linear-gradient(top,  #010101 0%, #010101 100%); /* FF3.6-15 */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#010101), color-stop(100%,#010101)); /* Chrome4-9,Safari4-5 */
+	background: -webkit-linear-gradient(top,  #010101 0%,#010101 100%); /* Chrome10-25,Safari5.1-6 */
+	background: -o-linear-gradient(top,  #010101 0%,#010101 100%); /* Opera 11.10-11.50 */
+	background: -ms-linear-gradient(top,  #010101 0%,#010101 100%); /* IE10 preview */
+	background: linear-gradient(to bottom,  #010101 0%,#010101 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010101', endColorstr='#010101',GradientType=0 ); /* IE6-9 */
+}
+}
+
+#x_footerBg {
+	background-image: none;
+}
+#x_footerChevron{
+    color: #eee;
+}
+
+#x_footerChevron:focus, #x_footerChevron:hover {
+	color: #ccc;
+}
+
+#x_pageNo {
+	background:	#010101;
+}
+
+h1 {
+	font-size:	1em;
+	margin:		0px;
+}
+
+h2 {
+	font-size:	1.2em;
+	margin:		5px 0px 0px;
+}
+
+h3 {
+	font-size:	1em;
+	margin:		0px;
+}
+
+/* see pngs in modules/xerte/parent_templates/Nottingham/common_html5 to see how replacement images for buttons should be made (with 4 states in one image file) */
+/* the easiest way is to keep button dimensions the same (42 x 40px) so background-positions below don't need adjusting */
+
+.ui-button .ui-icon.x_help {					background-image: url("help.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_help {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_help {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_help {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_info {					background-image: url("info.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_info {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_info {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_info {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_home {					background-image: url("home.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_home {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_home {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_home {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_glossary {				background-image: url("glossary.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_glossary {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_glossary {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_glossary {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_maximise {				background-image: url("maximise.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_maximise {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_maximise {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_maximise {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_minimise {				background-image: url("minimise.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_minimise {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_minimise {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_minimise {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_media {					background-image: url("media.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_media {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_media {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_media {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_next {					background-image: url("next.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_next {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_next {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_next {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_prev {					background-image: url("previous.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_prev {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_prev {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_prev {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_prev_hist {					background-image: url("previous_hist.png"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_prev_hist {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_prev_hist {	background-position: -42px 0px; }
+
+.ui-button .ui-icon.x_colourChanger { background-image: url("colour_changer.png"); background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_colourChanger {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_colourChanger {	background-position: -42px 0px; }
+
+.ui-button .ui-icon.x_saveSession { background-image: url("save_session.png");background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_saveSession {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_saveSession {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_saveSession {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_projectIntro { background-image: url("project_intro.png");background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_projectIntro {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_projectIntro {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_projectIntro {	background-position: -84px 0px; }
+
+#x_footerBlock button.customIconBtn {
+	color: #EEEEEE;
+}
+
+#x_footerBlock button.customIconBtn:not(.ui-state-disabled):hover, #x_footerBlock button.customIconBtn:not(.ui-state-disabled):focus {
+	color: #CCCCCC;
+}
+
+.ui-dialog .ui-widget-header {
+border: 1px solid #010101;
+background: #010101 url(ui-bg_highlight-soft_75_2d2a2a_1x100.png) 50% 50% repeat-x;
+color: #ffffff;
+font-weight: bold;
+}
+.ui-button.ui-state-active .ui-icon.x_prev_hist {	background-position: -84px 0px; }
+
+
+
+#x_headerBlock #x_pageIntroBtn {
+	color: white;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg {
+	color: black;
+	background-color: white;
+}
+
+#x_headerBlock #x_pageIntroBtn.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.ui-state-active {
+	color: #eeeeee;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-state-active {
+	color: black;
+	background-color: #eeeeee;
+}

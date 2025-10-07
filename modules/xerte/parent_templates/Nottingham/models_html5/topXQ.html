@@ -1,0 +1,606 @@
+<script type="text/javascript">
+    /**
+     * Licensed to The Apereo Foundation under one or more contributor license
+     * agreements. See the NOTICE file distributed with this work for
+     * additional information regarding copyright ownership.
+
+     * The Apereo Foundation licenses this file to you under the Apache License,
+     * Version 2.0 (the "License"); you may not use this file except in
+     * compliance with the License. You may obtain a copy of the License at:
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
+        // pageChanged & sizeChanged functions are needed in every model file
+        // other functions for model should also be in here to avoid conflicts
+    var topXQ = new function () {
+			
+			var $pageContents;
+            var tickTxt = x_getLangInfo(x_languageData.find("tick")[0], "title") != undefined ? x_getLangInfo(x_languageData.find("tick")[0], "title") : "Correct";
+            var crossTxt = x_getLangInfo(x_languageData.find("cross")[0], "title") != undefined ? x_getLangInfo(x_languageData.find("cross")[0], "title") : "Incorrect";
+		    var judge = true;
+		    if(!(x_currentPageXML.getAttribute("judge") == "true" || x_currentPageXML.getAttribute("judge") == undefined)){
+				judge = false;
+			}
+			
+			// function called every time the page is viewed after it has initially loaded
+            this.pageChanged = function () {
+				$pageContents = $('#pageContents');
+            };
+			
+            // function called every time the size of the LO is changed
+            this.sizeChanged = function () {
+                const $panel = $("#pageContents .panel");
+                $panel.height(x_getAvailableHeight([$panel]));
+            };
+
+            this.leavePage = function () {
+                if (!$pageContents.data('hasExited')) {
+                    topXQ.fillInputs();
+					
+					var checkAnswers = $pageContents.data('checkAnswers');
+					for (var i = 0; i < checkAnswers.length; i++) {
+						topXQ.checkSingleAnswer(i);
+					}
+					
+					var answers = $pageContents.data('answers'),
+						inputs = $pageContents.data('inputs'),
+						doneAnswers = [];
+					
+					for (i = 0; i < inputs.length; i++) {
+						for (k = 0; k < answers.length; k++) {
+							for (j = 0; j < answers[k].options.length; j++) {
+								if (!doneAnswers.includes(k) && inputs[i] === answers[k].options[j].trim()) {
+									doneAnswers.push(k);
+									$("#topXQ-correctAnswer-" + k).addClass("fa").addClass("fa-fw").addClass("fa-long-arrow-left")
+								}
+							}
+						}
+					}
+                }
+            };
+			
+			this.fillInputs = function() {
+				var inputs = [];
+				$('.input-answer').each(function () {
+					inputs.push($(this).val());
+				});
+
+                var checkAnswers = [];
+                for (i = 0; i < inputs.length; i++) {
+                    checkAnswers.push({
+                        correct: false,
+                        comment: ""
+                    });
+                }
+				
+				var answers = $pageContents.data('answers');
+				for (i = 0; i < answers.length; i++) {
+					answers[i].counter = 0;
+                }
+				
+				$pageContents.data({
+					'inputs': inputs,
+					'checkAnswers': checkAnswers,
+					'answers': answers
+				});
+			}
+			
+			this.checkSingleAnswer = function(i){
+				var inputs = $pageContents.data('inputs'),
+					answers = $pageContents.data('answers'),
+					checkAnswers = $pageContents.data('checkAnswers'),
+					isCorrect = false;
+				
+				for (j = 0; j < answers.length; j++) {
+					for (x = 0; x < answers[j].options.length; x++) {
+						var givenAnswer = x_currentPageXML.getAttribute("caseSensitivity") == "true" || x_currentPageXML.getAttribute("caseSensitivity") == undefined ? inputs[i] : inputs[i].toLowerCase(),
+							correctAnswer = x_currentPageXML.getAttribute("caseSensitivity") == "true" || x_currentPageXML.getAttribute("caseSensitivity") == undefined ? answers[j].options[x].trim() : answers[j].options[x].trim().toLowerCase();
+						if (givenAnswer === correctAnswer || !judge) {
+							if (answers[j].counter == 1) {
+								// probably a duplicate that will be marked wrong but continue checking in case more than 1 identical answer is allowed
+								isCorrect = true;
+								checkAnswers[i].correct = false;
+								checkAnswers[i].comment = "Duplicate";
+							} else {
+								isCorrect = true;
+								checkAnswers[i].correct = true;
+								answers[j].counter++;
+								break;
+							}
+						}
+					}
+					if (checkAnswers[i].correct == true) {
+						break;
+					}
+				}
+				
+				if (!isCorrect && judge) {
+					checkAnswers[i].comment = "Wrong Answer";
+				}
+				
+				$pageContents.data({
+					'checkAnswers': checkAnswers,
+					'answers': answers
+				});
+			};
+			
+			this.exitPage = function(){
+				var amountOfCorrect = 0,
+					checkAnswers = $pageContents.data('checkAnswers'),
+					inputs = $pageContents.data('inputs');
+
+				
+				for (i = 0; i < inputs.length; i++) {
+					var result = {
+						success: checkAnswers[i].correct,
+						score: checkAnswers[i].correct ? 100.0 : 0.0,
+						judge: judge
+					};
+					XTExitInteraction(x_currentPage, i, result, "", inputs[i], "", x_currentPageXML.getAttribute("trackinglabel"));
+
+
+					if (checkAnswers[i].correct) {
+						amountOfCorrect++;
+					}
+				}
+				
+				var amountOfInputs = 0;
+                $('.input-answer').each(function () {
+                    amountOfInputs++;
+                });
+
+				var setScore = 0;
+				if (amountOfInputs === undefined || amountOfInputs === 0) {
+					amountOfInputs = 0;
+				}
+
+				if (amountOfInputs > 0 && amountOfCorrect > 0) {
+					setScore = 100 / amountOfInputs * amountOfCorrect;
+				}
+
+				XTSetPageScore(x_currentPage, setScore);
+			};
+			
+            this.init = function () {
+			
+				$pageContents = $('#pageContents');
+			
+				$pageContents.data('hasExited', false);
+
+                this.weighting = 1.0;
+				
+                if (x_currentPageXML.getAttribute("trackingWeight") != undefined) {
+                    this.weighting = x_currentPageXML.getAttribute("trackingWeight");
+                }
+				if(x_currentPageXML.getAttribute("judge") != undefined && x_currentPageXML.getAttribute("judge") == 'false'){
+					this.weighting= 0.0;
+				}
+				let nrInteractions = x_currentPageXML.getAttribute("numberAnswers") == "*"? $(x_currentPageXML).children().length : x_currentPageXML.getAttribute("numberAnswers");
+                XTSetPageType(x_currentPage, 'numeric', nrInteractions, this.weighting);
+
+                var panelWidth = x_currentPageXML.getAttribute("panelWidth"),
+                    $splitScreen = $("#pageContents .splitScreen");
+                var $textHolder = $("#textHolder");
+
+                if (panelWidth === "Full") {
+                    $("#pageContents .panel").appendTo($("#pageContents"));
+                    $splitScreen.remove();
+                } else {
+                    $textHolder.html(x_addLineBreaks(x_currentPageXML.getAttribute("instruction")));
+
+                    var textAlign = x_currentPageXML.getAttribute("align");
+                    if (textAlign !== "Right") {
+                        if (panelWidth === "Small") {
+                            $splitScreen.addClass("large");
+                        } else if (panelWidth === "Large") {
+                            $splitScreen.addClass("small");
+                        } else {
+                            $splitScreen.addClass("medium");
+                        }
+                    } else {
+                        $textHolder
+                            .removeClass("left")
+                            .addClass("right")
+                            .appendTo($splitScreen);
+                        $("#infoHolder")
+                            .removeClass("right")
+                            .addClass("left");
+                        if (panelWidth === "Small") {
+                            $splitScreen.addClass("medium");
+                        } else if (panelWidth === "Large") {
+                            $splitScreen.addClass("large");
+                        } else {
+                            $splitScreen.addClass("large");
+                        }
+                    }
+                }
+
+                var attemptLabel = x_currentPageXML.getAttribute("attemptLabel");
+                if( x_currentPageXML.getAttribute("attemptLabel") === null){
+                    attemptLabel = "Attempts remaining";
+                }
+
+                var instruction = x_currentPageXML.getAttribute("instruction");
+                $textHolder.html(instruction);
+
+                var $question = $("#question");
+                var prompt = x_currentPageXML.getAttribute("prompt");
+                $question.html(prompt);
+
+                var $optionHolder = $("#OptionHolder");
+
+                var $attempts = $("#attempts");
+                var amountofTries = parseInt(x_currentPageXML.getAttribute("amountOfTries"));
+				if (amountofTries != undefined && $.isNumeric(amountofTries)) {
+					$attempts.html('<p>' + attemptLabel+ ": "+ amountofTries + '</p>');
+					$pageContents.data('amountofTries', amountofTries);
+				} else {
+                    $("#attempts").data("attempts",false);
+                }
+
+                var elements = [];
+                $(x_currentPageXML).children().each(function (i) {
+                    elements.push(
+                        {
+                            label: this.getAttribute("name"),
+                            answer: $("<div>").html(this.getAttribute("answer")).text(),
+                            correct: this.getAttribute("correct"),
+                            feedback: this.getAttribute("feedback")
+                        }
+                    );
+                });
+
+                this.optionElements = elements;
+                var j = 0;
+				var amountOfAnswers = x_currentPageXML.getAttribute("numberAnswers");
+                if (amountOfAnswers === "*") {
+                    amountOfAnswers = elements.length;
+                } else if (amountOfAnswers > elements.length) {
+					amountOfAnswers = elements.length;
+				}
+				
+				var answerFieldLabel = x_currentPageXML.getAttribute("answerFieldLabel");
+                if (answerFieldLabel === undefined | answerFieldLabel === null) {
+                    answerFieldLabel = "Answer";
+                }
+                for (i = 0; i < amountOfAnswers; i++) {
+					const actualFieldLabel = answerFieldLabel + ' ' + (i+1);
+                    const $div = $('<div class="answer"><input class="input-answer" id="input-answer-'+i+'" aria-label="'+actualFieldLabel+'"/><span id="topXQ-result-' + i + '"></span></div>')
+                                    .data("label", actualFieldLabel);
+					$optionHolder.append($div);
+                    j++;
+                }
+				
+                var answers = [];
+                for (i = 0; i < elements.length; i++) {
+                    var answer = elements[i].answer.split(x_currentPageXML.getAttribute("answerDelimiter") != undefined && x_currentPageXML.getAttribute("answerDelimiter") != '' ? x_currentPageXML.getAttribute("answerDelimiter") : ',');
+                    answers.push({
+                        options: answer,
+                        counter: 0,
+                        counter2: 0
+                    });
+                }
+                $pageContents.data('answers', answers);
+
+                var correctOptionsFeedback = [];
+                for (i = 0; i < elements.length; i++) {
+                    correctOptionsFeedback.push(x_GetTrackingTextFromHTML(elements[i].feedback, ""))
+                }
+
+                $pageContents.data('correctOptionsFeedback', correctOptionsFeedback);
+
+                var checkBtnTxt = x_currentPageXML.getAttribute("checkBtnTxt");
+                if (checkBtnTxt === undefined) {
+                    checkBtnTxt = "Submit";
+                }
+                var attempt = 1;
+				
+				$("#checkButton")
+					.button({
+						label: checkBtnTxt
+					})
+					.click(function () {
+						if ($('#OptionHolder .input-answer').length == $('#OptionHolder .input-answer').filter(function(){ return !$(this).val(); }).length) {
+                            $("#attempts").find(".noAttempt").remove();
+                            $("#attempts").append('<p class="noAttempt">' + (x_currentPageXML.getAttribute("noAttemptTxt") != undefined ? x_currentPageXML.getAttribute("noAttemptTxt") : "Please attempt the activity") + '</p>');
+							
+						} else {
+							var tries;
+							if (x_currentPageXML.getAttribute("amountOfTries") != undefined && $.isNumeric(x_currentPageXML.getAttribute("amountOfTries")) && judge) {
+								tries = parseInt(x_currentPageXML.getAttribute("amountOfTries"));
+								$pageContents.data('amountofTries', $pageContents.data('amountofTries')-1);
+
+								if ($pageContents.data('amountofTries') > 0) {
+									$attempts.html('<p>' + attemptLabel + ": "+ $pageContents.data('amountofTries') + '</p>');
+								}else{
+									$attempts.html("");
+								}
+							} else {
+                                $attempts.html("");
+                            }
+
+							var blankAnswers = [];
+							let numberAnswers = x_currentPageXML.getAttribute("numberAnswers") == "*"? answers.length : x_currentPageXML.getAttribute("numberAnswers");
+							for (i = 0; i < numberAnswers; i++) {
+								blankAnswers.push("-");
+							}
+							for (i = 0; i < blankAnswers.length; i++) {
+								XTEnterInteraction(x_currentPage, i, "fill-in", x_GetTrackingTextFromHTML(x_currentPageXML.getAttribute("prompt"), ""), "", blankAnswers[i], $pageContents.data('correctOptionsFeedback'), x_currentPageXML.getAttribute("grouping"));
+							}
+							
+							if (!$pageContents.data('hasExited')) {
+								$pageContents.data('hasExited', true);
+							}
+
+							showFeedback = function () {
+								var answers = $pageContents.data('answers');
+
+								AllAnswersCheckt = function(){
+									var inputs = $pageContents.data('inputs'),
+										answers = $pageContents.data('answers');
+									
+									for (i=0; i<answers.length; i++) {
+										answers[i].counter2 = 0;
+									}
+					
+									var amountOfGood = 0;
+									if (x_currentPageXML.getAttribute("caseSensitivity") == "true" || x_currentPageXML.getAttribute("caseSensitivity") == undefined) {
+
+										for (i = 0; i < inputs.length; i++) {
+											for (j = 0; j < answers.length; j++) {
+												for (x = 0; x < answers[j].options.length; x++) {
+
+													var givenAnswer = inputs[i];
+													var correctAnswer = answers[j].options[x].trim();
+													if (givenAnswer === correctAnswer || !judge) {
+														answers[j].counter2++;
+														amountOfGood++;
+														if (answers[j].counter2 > 1) {
+															amountOfGood--;
+														}
+														break;
+													}
+												}
+											}
+										}
+									} else {
+										for (i = 0; i < inputs.length; i++) {
+											var isCorrect = false;
+											for (j = 0; j < answers.length; j++) {
+												for (x = 0; x < answers[j].options.length; x++) {
+
+													var givenAnswer = inputs[i].toLowerCase();
+													var correctAnswer = answers[j].options[x].trim().toLowerCase();
+
+													if (givenAnswer === correctAnswer || !judge) {
+														answers[j].counter2++;
+														amountOfGood++;
+														if (answers[j].counter2 > 1) {
+															amountOfGood--;
+														}
+														break;
+													}
+												}
+											}
+
+										}
+									}
+									
+									$pageContents.data('answers', answers);
+									
+									if (amountOfGood === inputs.length){
+										return true;
+									}
+								};
+
+								var passedTxt = x_currentPageXML.getAttribute("passed");
+								if (passedTxt === undefined) {
+									passedTxt = "Well done, you have completed the activity";
+								}
+
+								var failedTxt = x_currentPageXML.getAttribute("failed");
+								if (failedTxt === undefined) {
+									failedTxt = "Not all of the answers are correct";
+								}
+
+								var passedOrFailed = "";
+
+								var passed = AllAnswersCheckt();
+								if (passed === true){
+									passedOrFailed = passedTxt;
+								}else{
+									passedOrFailed = failedTxt;
+								}
+
+								$("#result").html('<p><span id="finalResult"></span>' + passedOrFailed + '</p>');
+
+                                $("#correctAnswer").html('');
+                                // show all answers
+                                if (x_currentPageXML.getAttribute("showAnswers") === "true" || x_currentPageXML.getAttribute("showAnswers") === undefined) {
+                                    var correctAnswersLabel = x_currentPageXML.getAttribute("correctAnswersLabel");
+                                    $("#correctAnswer").append('<h3>' + correctAnswersLabel + '</h3><ul>');
+
+                                    if ($('#correctAnswer ul').has("li").length === 0) {
+                                        for (i = 0; i < answers.length; i++) {
+                                            $("#correctAnswer ul").append("<li>" + answers[i].options + "<span id='topXQ-correctAnswer-" + i + "'></span> </li>");
+                                        }
+                                    }
+
+                                    // only show answers that haven't been submitted
+                                } else if (x_currentPageXML.getAttribute("showAnswers") === "others") {
+                                    var otherCorrectAnswersLabel = x_currentPageXML.getAttribute("otherCorrectAnswersLabel") != undefined ? x_currentPageXML.getAttribute("otherCorrectAnswersLabel") : 'Other possible answers';
+                                    $("#correctAnswer").append('<h3>' + otherCorrectAnswersLabel + '</h3><ul>');
+
+                                    if ($('#correctAnswer ul').has("li").length === 0) {
+                                        for (i=0; i<answers.length; i++) {
+                                            var used = false;
+                                            for (j=0; j<answers[i].options.length; j++) {
+                                                var inputs = $pageContents.data('inputs');
+                                                for (k=0; k<inputs.length; k++) {
+                                                    if (inputs[k] === answers[i].options[j].trim()) {
+                                                        used = true;
+                                                    }
+                                                }
+                                            }
+                                            if (used == false) {
+                                                $("#correctAnswer ul").append("<li>" + answers[i].options + "<span id='topXQ-correctAnswer-" + i + "'></span> </li>");
+                                            }
+                                        }
+                                    }
+
+                                    if ($("#correctAnswer ul li").length == 0) {
+                                        $('#correctAnswer').empty();
+                                    }
+                                }
+								
+								if(passed=== true){
+									if(passedTxt !== ""){
+										$("#finalResult")
+											.removeClass("fa-x-cross")
+											.addClass("fa").addClass("fa-fw").addClass("fa-x-tick");
+									}
+								}else{
+									if(failedTxt !== ""){
+										$("#finalResult")
+											.removeClass("fa-x-tick")
+											.addClass("fa").addClass("fa-fw").addClass("fa-x-cross");
+									}
+
+								}
+								
+								var mainFeedback = x_currentPageXML.getAttribute("feedback");
+								if (mainFeedback === null) {
+									mainFeedback = "";
+								}
+
+								if (mainFeedback != '') {
+									$("#mainFeedback").html((x_currentPageXML.getAttribute("feedbackLabel") != undefined && x_currentPageXML.getAttribute("feedbackLabel").trim() != '' ? '<h3>' + x_currentPageXML.getAttribute("feedbackLabel") + '</h3>' : '') + mainFeedback);
+								}
+							};
+							
+							topXQ.fillInputs();
+							
+							var checkAnswers = $pageContents.data('checkAnswers'),
+								wrong = checkAnswers.length;
+
+							if ((attempt < tries && wrong > 0) || tries == undefined) {
+								for (var i = 0; i < checkAnswers.length; i++) {
+									if (checkAnswers[i].correct === false) {
+										topXQ.checkSingleAnswer(i);
+									}
+									if (checkAnswers[i].correct === true) {
+										//disable the input field
+										$("#input-answer-" + i).prop('readonly', true);
+										if(judge) {
+											$("#topXQ-result-" + i)
+												.removeClass("fa-x-cross")
+												.addClass("fa").addClass("fa-fw").addClass("fa-x-tick")
+                                                .parents(".answer").find(".input-answer").attr("aria-label", $("#topXQ-result-" + i).parents(".answer").data("label") + " " + tickTxt);
+                                        }
+										wrong --;
+									}else{
+										$("#topXQ-result-" + i)
+											.removeClass("fa-x-tick")
+											.addClass("fa").addClass("fa-fw").addClass("fa-x-cross")
+                                            .parents(".answer").find(".input-answer").attr("aria-label", $("#topXQ-result-" + i).parents(".answer").data("label") + " " + crossTxt);
+									}
+
+								}
+								attempt++;
+								
+								if (tries === undefined) {
+									showFeedback();
+									topXQ.exitPage();
+								}
+								
+
+							} else {
+								$('#checkButton').hide();
+								
+								for (var i = 0; i < checkAnswers.length; i++) {
+									$("#input-answer-" + i).prop('readonly', true);
+									
+									if (tries == 1 && checkAnswers[i].correct === true){
+										$("#topXQ-result-" + i)
+											.removeClass("fa-x-cross")
+											.addClass("fa").addClass("fa-fw").addClass("fa-x-tick")
+                                            .parents(".answer").find(".input-answer").attr("aria-label", $("#topXQ-result-" + i).parents(".answer").data("label") + " " + tickTxt);
+									}
+
+									if (checkAnswers[i].correct === false) {
+										topXQ.checkSingleAnswer(i);
+										if(checkAnswers[i].correct === false) {
+											if (attempt === tries) {
+												$("#topXQ-result-" + i)
+													.removeClass("fa-x-tick")
+													.addClass("fa").addClass("fa-fw").addClass("fa-x-cross")
+                                                    .parents(".answer").find(".input-answer").attr("aria-label", $("#topXQ-result-" + i).parents(".answer").data("label") + " " + crossTxt);
+											}
+										}else{
+											$("#topXQ-result-" + i)
+												.removeClass("fa-x-cross")
+												.addClass("fa").addClass("fa-fw").addClass("fa-x-tick")
+                                                .parents(".answer").find(".input-answer").attr("aria-label", $("#topXQ-result-" + i).parents(".answer").data("label") + " " + tickTxt);
+										}
+									}
+								}
+								
+								showFeedback();
+								topXQ.exitPage();
+							}
+							
+							if (wrong === 0) {
+								$('#checkButton').hide();
+								showFeedback();
+								topXQ.exitPage();
+							}
+						}
+					})
+					.show();
+
+				this.sizeChanged();
+
+                // call this function in every model once everything is loaded
+                x_pageLoaded();
+            }
+        };
+
+    topXQ.init();
+
+</script>
+
+
+<div id="pageContents">
+    <div class="splitScreen">
+        <div id="textHolder" class="left"></div>
+        <div id="infoHolder" class="right">
+            <div id="mainPanel" class="panel" tabindex="0">
+                <fieldset class="noStyle">
+
+                    <div class="titleQuestion">
+                        <legend id="question"></legend>
+                    </div>
+
+                    <div id="OptionHolder" class="question"></div>
+
+                    <button id="checkButton"></button>
+                    <div id="attempts" aria-live="polite"></div>
+                    <div id="result" aria-live="polite"></div>
+
+                    <div id="correctAnswer" aria-live="polite"></div>
+                    <div id="mainFeedback" aria-live="polite"></div>
+
+                </fieldset>
+            </div>
+        </div>
+
+    </div>
+</div>

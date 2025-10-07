@@ -1,0 +1,358 @@
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+html{
+
+	margin:0px;
+	padding:0px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:80%;
+
+}
+
+body{
+
+	margin:0px;
+	padding:0px;
+	
+}
+
+.buttonbar, .pagecontainer {
+	background-color: white;
+}
+
+.topbar{
+	height:80px;
+	background-image:url(../images/TopBar.jpg);
+	background-repeat:repeat-x;
+	margin:0 auto;
+	width:100%;
+}
+
+.pagecontainer{
+	margin:0 auto;
+	width: 100%;
+	max-width: 1280px;
+	box-sizing: border-box;
+}
+
+.admin_mgt_area{
+	width:100%; 
+	position:relative; 
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.admin_mgt_area_top{
+	width:100%; 
+	position:relative; 
+	border: 1px #b6b3a8 solid;
+	background: #ededed;
+}
+
+h1.heading{
+	color:#645f4f; 
+	font-weight:bold; 
+	padding:0px; 
+	margin:10px 0 5px 10px;
+	font-size: 1.2em;
+}
+
+.admin_mgt_area_middle{
+	position:relative; 
+	width:100%; 
+	margin:0px; 
+	padding:0px;
+	border: 1px #b6b3a8 solid;
+	border-top: none;
+	background: #ededed;
+}
+
+.admin_mgt_area_middle_button{
+	position:relative; 
+	width:100%;
+	background-color:#e8edf3;
+}
+
+.admin_mgt_area_middle_button img{
+	margin:5px;
+}
+
+.admin_mgt_area_middle_button_left{
+	float:left; 
+	position:relative; 
+	margin:7px 10px;
+}
+
+.admin_mgt_area_middle_button_left .xerte_button, .admin_mgt_area_middle_button_right .xerte_button {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.admin_mgt_area_middle_button_right{
+	border-left: 1px #b6b3a8 solid;
+	margin: 7px 10px;
+	padding-left: 13px;
+	display: inline-block;
+}
+
+.admin_mgt_area_middle_button_left .xerte_button, .admin_mgt_area_middle_button_right .xerte_button {
+	display: inline-grid;
+}
+
+div#admin_area{
+	min-height:70vh;
+	overflow:auto; 
+	position:relative; 
+	width:100%;
+	background-color:#fff;
+	color:#555;
+	padding-left: 20px;
+	padding-right: 20px;
+	box-sizing: border-box;
+}
+
+div#admin_area p{
+	margin:5px 0 0 5px;
+	padding:0px;
+	font-weight:bold;
+}
+
+div#admin_area h3 {
+	margin-left: 5px;
+}
+
+div#admin_area h4 {
+	margin-bottom: 5px;
+}
+
+div#admin_area a{
+	color:#888;
+}
+
+div#admin_area p form{
+
+	margin:5px 0 5px 10px;
+	padding:0px;
+}
+
+div#admin_area form textarea{
+
+	margin:5px 0 5px 5px;
+	padding:0px;
+}
+
+div#admin_area form select, div#admin_area form input, div#admin_area form .xerte_button{
+	margin: 5px;
+}
+
+.admin_block {
+	border-top: 1px #758389 dotted;
+	margin-top: 10px;
+}
+
+.main_admin_block {
+	border-top: 2px #758389 solid;
+	margin-top: 10px;
+}
+
+
+.admin_block .xerte_button {
+	margin-top: 5px;
+}
+
+.theme{
+	position:relative;
+	padding:5px;
+	margin:0px;
+	width:100%;
+	box-sizing: border-box;
+	border-bottom: none;
+	cursor:pointer;
+}
+
+.template{
+	position:relative;
+	padding:5px;
+	margin:0px;
+	width:100%;
+	font-size:normal;
+	box-sizing: border-box;
+	border-bottom: none;
+}
+
+.template:not(:first-of-type){
+	border-top: 1px #758389 dotted;
+}
+
+.template_list {
+	clear: both;
+	margin-bottom: 10px;
+}
+
+.template_list:not(:first-of-type) {
+	border-top: 1px #758389 dotted;
+	margin-top: 10px;
+}
+
+.template_list .template {
+	margin-left: 10px;
+}
+
+.template_list .theme {
+	margin-left: 10px;
+}
+
+.template_list .template_details {
+	margin-left: 5px;
+}
+
+.template_details{
+
+	float:left;
+	position:relative;
+	display:none;
+	padding:5px;
+	width:100%;
+
+}
+
+#usertemplatelist {
+	border-top: 1px #758389 dotted;
+}
+
+#usertemplatelist .template_details, .template_list .template_details {
+	padding-left: 10px;
+}
+
+.template_details .xerte_button {
+	margin-bottom: 5px;
+}
+
+.template_details form{
+	
+	padding-top: 3px;
+	width:100%;
+
+}
+
+.template_details form textarea{
+	
+	width:95%;
+
+}
+
+.template_details p{
+	
+	font-weight:normal;
+
+}
+
+.management_input {
+	margin-bottom: 5px;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.sub_page_selection_menuitem {
+	font-weight: bold;
+	font-style: italic;
+	padding-left: 30px;
+}
+
+.sub_page_selection_model {
+	margin-left: 40px;
+}
+
+form[name='user_templates'] {
+	padding: 10px;
+}
+
+.indented {
+	padding-left: 10px;
+}
+
+#transferownership {
+	padding:10px;
+}
+
+.selectize-control {
+	margin: 5px;
+	display: inline-block;
+	width:50%;
+	vertical-align: middle;
+}
+
+.register {
+	border-bottom:#f3eee2 1px dotted;
+	padding-bottom: 5px;
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: min-content min-content min-content;
+	white-space: nowrap;
+}
+
+.hidden{
+	display: none;
+}
+
+.user-role-overview {
+	margin-left: 10px;
+}
+
+.user-role-overview th, .user-role-overview td {
+	text-align: left;
+	padding-right: 15px;
+}

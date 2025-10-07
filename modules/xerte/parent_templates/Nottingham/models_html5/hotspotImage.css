@@ -1,0 +1,56 @@
+/* hotspotImage.html */
+	
+	#panel {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	
+	#panel.right {
+		float:	right;
+		margin:	0 0 20px 20px;
+	}
+	
+	#panel.left {
+		float:	left;
+		margin:	0 20px 20px 0;
+	}
+	
+	#x_mainHolder.x_mobile #panel {
+		margin-top: 20px;
+	}
+	
+	#imageHolder {
+		position:	relative;
+	}
+	
+	#pageContents .hotspot {
+		position:	absolute;
+		cursor:		pointer;
+	}
+	
+	#x_mainHolder:not(.x_mobile) #infoHolder {
+		padding-top: 10px;
+	}
+	
+	#infoHolder hr {
+		border: none;
+		background-color: #CCCCCC;
+		height: 1px;
+		margin-bottom: 20px;
+	}
+	
+	#pageContents .highlightBorder {
+		border:		1px solid;
+		margin-top: -1px;
+		margin-left: -1px;
+	}
+	
+	#pageContents .selected {
+		margin-top: -2px;
+		margin-left: -2px;
+	}
+	
+	#btnHolder {
+		margin-top: 0.5em;
+		float: right;
+	}

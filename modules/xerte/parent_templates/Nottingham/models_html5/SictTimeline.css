@@ -1,0 +1,116 @@
+#pageContents .tl-text,
+#pageContents .tl-text p,
+#pageContents .tl-timemarker-text,
+#pageContents .tl-text .tl-headline-date,
+#pageContents .tl-text h3.tl-headline-date
+#pageContents .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-media-container [class^="tl-icon-"],
+#pageContents .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-media-container [class*=" tl-icon-"],
+#pageContents .tl-timeaxis .tl-timeaxis-content-container .tl-timeaxis-major .tl-timeaxis-tick,
+#pageContents .tl-timeaxis .tl-timeaxis-content-container .tl-timeaxis-minor .tl-timeaxis-tick {
+	color: black !important;
+}
+
+#pageContents .tl-text .tl-headline-date,
+#pageContents .tl-text h3.tl-headline-date {
+	border-bottom: 2px solid #ccc;
+}
+
+.tl-text-content li {
+	font-size: 1.6vw !important;
+}
+
+/*Audio*/
+.tl-media-content{
+    display: flex;
+    justify-content: center;
+}
+
+/*Video*/
+#pageContents{
+    background-color: #0b2e13 !important;
+}
+
+.tl-slide .tl-slide-media-only{
+    background-color: #0a8bee !important;
+}
+
+/*Make the box smaller*/
+.tl-timemarker-content{
+    background-color: #DEDEDE !important;
+}
+/*make the image smaller*/
+.tl-icon-image{
+    font-size: 15px !important;
+}
+
+.tl-timemarker-content [class^="tl-icon-"] {
+    color: #000 !important;
+}
+.tl-timemarker-text p.tl-headline {
+    color: #000 !important;
+    font-size: 12px !important;
+    padding: 0;
+}
+
+.lightboxWrapper{
+    background-color: red!important;
+    z-index: 1!important;
+}
+
+.tl-slide-content{
+    height: 100% !important;
+}
+#pageContents h3{
+    padding-top: 20px; !important;
+}
+
+.tl-media-item{
+    margin: auto !important;
+}
+
+.tl-media{
+    padding-left: 7%
+}
+
+.tl-text{
+    padding-left: 4%
+}
+
+.tl-media-audio:focus { outline: none; }
+
+.spinner{
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+}
+
+div.tl-media-vimeo.tl-media-shadow  {
+    -webkit-box-shadow: unset;
+    -moz-box-shadow: unset;
+    box-shadow: unset;
+}
+
+.tl-timeline p{
+    font-size: 1.6vw !important;
+}
+.tl-text-content-container h2{
+   font-size: 1.6vw !important;
+}
+
+.tl-headline
+{
+    text-align: left;
+}
+
+h3.tl-headline-date br {
+    content: '';
+}
+
+h3.tl-headline-date br:after {
+    content: ' ';
+}
+
+.tl-text .tl-headline-date small, .tl-text h3.tl-headline-date small {
+    font-size: inherit !important;
+}

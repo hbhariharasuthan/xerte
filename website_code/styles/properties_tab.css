@@ -1,0 +1,571 @@
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+body{
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+}
+
+h1 {
+	margin: 0;
+	font-size: 1.3em;
+}
+
+.properties_main {
+	background-color:#ededed;
+	font-size:1em;
+	min-height: 100%;
+}
+
+.main_area{
+	color:#000;
+	margin:0px;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+
+div#title{
+	font-weight:bold;
+	color:#000;
+	padding: 10px;
+	flex: 0 1 auto;
+}
+
+div#title i {
+	margin-right: .5em;
+}
+
+div#data_area{
+	position:relative;
+	flex: 1 1 521px;
+	align-items: stretch;
+	height: 100%;
+}
+
+#menu_tabs {
+	height: 100%;
+}
+
+#menu_tabs #dynamic_area {
+	background-color:#fff;
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+	margin: 0 1em 1em 0;
+	width: calc(70% - 1em);
+	overflow-x: hidden;
+	font-size: .9em;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.tabPanel {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+
+.tabPanel h2.header {
+	flex: 0 1 auto;
+}
+
+.tabPanel #mainContent {
+	flex: 1 1 auto;
+	align-items: stretch;
+}
+
+div#dynamic_area p{
+	padding:5px 10px;
+	margin:0px;
+}
+
+div#dynamic_area button_p{
+	padding:0px;
+	margin:0px;
+}
+
+div#display_area{
+	background-color:#fff;
+}
+
+div#display_area img{
+	padding-left:10px;
+}
+
+/*div#dynamic_area p span{
+	font-weight:bold;
+}*/
+
+div#dynamic_area a{
+	color:#007;
+}
+
+.header{
+	background-color:#4d585e;
+	color:#fff;
+	margin: 0;
+	padding: .5em;
+	font-size: 1.3em;
+}
+
+div#dynamic_area form{
+	padding-left:10px;
+}
+
+.form_image_side{
+	vertical-align:middle;
+}
+
+.form_image_bottom{
+	padding-top:10px;
+}
+
+.template_file_area{
+	margin: 10px;
+}
+
+#mediaTable,
+.workspaceProjectsTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#mediaTable th,
+.workspaceProjectsTable th {
+	font-weight: bold;
+}
+
+#mediaTable td, #mediaTable th,
+.workspaceProjectsTable td, .workspaceProjectsTable th {
+	border: 1px solid #4d585e;
+	text-align: left;
+}
+
+#mediaTable .fa-check,
+.workspaceProjectsTable .fa-check {
+	color: green;
+}
+
+#mediaTable .fa-times,
+.workspaceProjectsTable .fa-times {
+	color: red;
+}
+
+th.filename, th.filesize, th.fileinuse, td.filesize,
+.workspaceProjectsTable th, .workspaceProjectsTable td {
+	padding: 3px 6px;
+}
+
+.workspaceProjectsTable th.narrow {
+	width: 1px;
+	white-space: nowrap;
+}
+
+.filename button.filenameBtn, .fileinuse button.deleteFile {
+	width: 100%;
+	cursor: pointer;
+	border: none;
+	background: none;
+	border-radius: 0;
+	height: 2em;
+	text-align: left;
+}
+
+.filename button.filenameBtn:hover, .filename button.filenameBtn:active, .filename button.filenameBtn:focus,
+.fileinuse button.deleteFile:hover, .fileinuse button.deleteFile:active, .fileinuse button.deleteFile:focus {
+	background: #a4b6bf;
+}
+
+#mediaTable .fileinuse button.deleteFile:hover .fa-times, #mediaTable .fileinuse button.deleteFile:active .fa-times, #mediaTable .fileinuse button.deleteFile:focus .fa-times {
+	color: black;
+}
+
+.deleteFile {
+	cursor: pointer;
+}
+
+#mediaTable td.fileinuse, .fileinuse button.deleteFile {
+	text-align: center;
+}
+
+.notfound{
+	background-color: #ededed;
+}
+
+#filenameuploaded_container {
+  border: 1px solid #767676;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+input[type=file]#filenameuploaded::file-selector-button {
+  background-color: #fff;
+  color: #000;
+  border: 0;
+  border-right: 1px solid #767676;
+  padding: 5px 8px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+input[type=file]#filenameuploaded:hover::file-selector-button, input[type=file]#filenameuploaded:focus::file-selector-button, input[type=file]#filenameuploaded:active::file-selector-button {
+	background-color: #a4b6bf;
+}
+
+div#security_list p{
+	margin:4px;
+	padding:4px;
+}
+
+.share_files_img{
+	padding-left:10px;
+}
+
+.share_top{
+	background-color:#f8f7f2;
+	float:left;
+	position:relative;
+}
+
+.share_border{
+	border-bottom:1px dotted #a8b2b5;
+	margin:0px;
+	padding:0px;
+	width:100%;
+}
+
+/* end of dynamic area */
+
+#menu_tabs #tabs {
+	float:left;
+	position:relative;
+	width: 30%;
+	margin-top: 2.8em;
+}
+
+#menu_tabs #tabs button {
+	display: block;
+	width: calc(100% - 10px);
+	float: right;
+	border: none;
+	background-color: #a4b6bf;
+	padding: 10px;
+	text-align: left;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	margin-bottom: 2px;
+	cursor: pointer;
+}
+
+#menu_tabs #tabs button:not(.tabSelected):active, #menu_tabs #tabs button:not(.tabSelected):hover, #menu_tabs #tabs button:not(.tabSelected):focus {
+	background-color: #b6c5cc;
+}
+
+#menu_tabs #tabs button.tabSelected {
+	background-color: white;
+}
+
+/*
+86 99 9d 86999d
+9b b1 bd 9bb1bd
+4d 58 5e 4d585e
+*/
+
+.tab{
+	float:right;
+	position:relative;
+	background-color:#a4b6bf;
+	border-bottom-left-radius:7px;
+	border-top-left-radius:7px;
+	cursor:hand;
+	cursor:pointer;
+	color:#fff;
+	/*RM responsive changes*/
+	width:100% !important;
+}
+
+.tab_selected{
+	float:right;
+	position:relative;
+	background-color:#fff;
+	border-bottom-left-radius:7px;
+	border-top-left-radius:7px;
+	cursor:hand;
+	cursor:pointer;
+	color:#000;
+	/*RM responsive changes*/
+	width:100% !important;
+}
+
+.tab p,.tab_selected p{
+	margin:10px;
+	font-weight:bold;
+}
+
+.tab_spacer{
+	float:right;
+	position:relative;
+	width:147px;
+	height:3px;
+	background-color:#ededed;
+	overflow:hidden;
+	border-right:1px #ededed solid;
+	/*RM responsive changes*/
+	width: 100%;
+}
+
+#panelLti .textBoxes {
+	margin-top: .5em;
+}
+
+#panelLti .textBoxes .textBoxGroup {
+	margin-top: .5em;
+	margin-bottom: 5px;
+}
+
+#panelLti .textBoxes label {
+	display: block;
+}
+#panelLti .textBoxes input[type="text"] {
+	width: 90%;
+}
+
+div#dynamic_area #panelLti form {
+	padding-left: 0;
+	margin-top: 1em;
+}
+
+#panelLti fieldset legend {
+	font-weight: bold;
+}
+
+/*RM responsive changes*/
+ol {
+	margin-right: 1%;
+}
+.xerte_button{
+	margin:1%;
+}
+textarea {
+	width: 95% !important;
+}
+input, textarea, button {
+	font-size: 1em;
+}
+#share_form input[type=text], #rename_form input {
+	width: 60%;
+}
+input[name=password] {
+	width: 45%;
+}
+input[name=sitename] {
+	width: 75%;
+}
+input[name=retouremail], input[name=templatename] {
+	width: 55%;
+}
+.publish table{
+	width: 90%;
+}
+
+.publish td {
+	width: 55%;
+}
+
+.publish td:first-child {
+	width: 40%;
+}
+
+#xApi input[type=text] {
+	width: 100%;
+}
+#publish input[type=text] {
+	width: 100%;
+}
+
+
+.publish.disabled label, .publish div.disabled label, .publish label.disabled {
+	color: gray;
+}
+
+fieldset.plainFS {
+	border: 0;
+	margin: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+fieldset.plainFS legend {
+	padding: 0;
+}
+
+#engineFS {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#dynamic_area h3 {
+	padding: 10px 10px;
+	font-size: 1em;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+div#dynamic_area fieldset p {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#mainContent {
+	margin-top: 10px;	
+}
+
+#mainContent .xerte_button, .featherlight-content .xerte_button {
+	font-size: 1.35em;
+	font-weight: bold;
+	border: none !important;
+}
+
+div#dynamic_area p.share_explain_paragraph, div#dynamic_area p.share_status_paragraph {
+	display: block;
+	margin-left: 1.5em;
+	padding-top: 5px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#delete_unused_files {
+	margin-top: 10px;
+}
+
+#security_list {
+	padding-top: 0;
+}
+
+#security_list legend {
+	margin-bottom: 10px;
+}
+
+#security_list #other_site_address, #security_list #PWPlay_pwd {
+	margin-left: 1.5em;
+	padding-left: 0;
+	margin-bottom: 1em;
+}
+
+.alert_msg {
+	margin-left: 1em;
+	font-weight: normal !important;
+}
+
+#mainContent label.block {
+	display: block;
+	margin-bottom: 5px;
+}
+
+#rename_form button.xerte_button {
+	margin-top: 0;
+}
+
+.indent {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#embedCodeLabel, #engineFS, #descLabel, #descriptionLabel, #keywordsLabel, #category_listLabel, #license_listLabel, #sitenameLabel,
+#passwordLabel, #retouremailLabel {
+	margin-top: 1em;
+}
+
+#mainContent p:first-child,
+#mainContent h3:first-child {
+	padding-top: 0;
+}
+
+div#dynamic_area p span.placeholderTxt {
+	color: #666;
+	font-weight: normal;
+}
+
+#share_form {
+	margin-bottom: 1em;
+}
+
+ul.rssLists {
+	margin-top: 0;
+}
+
+ul.dynamic_area_folder {
+	list-style-type: none;
+	list-style-image: none;
+	padding-left: 1em;
+}
+
+li.dynamic_area_file, li.dynamic_area_folder {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+#share_form #rolebutton {
+	margin-top: 1em;
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+}
+
+ul.share_form_results, ul.share_users:not(.show_list) {
+	list-style-type: none;
+	list-style-image: none;
+	padding-left: 10px;
+	margin-top: 0;
+}
+
+#mainContent #namewrong p {
+	padding-left: 0;
+	padding-top: 5px;
+}
+
+#sub_dynamic_area {
+	margin: 10px;
+}
+
+/*class for hidden screenreader only content*/
+/* colour is black on white to surpress contrast errors from some accessibility checkers */
+.sr-only {
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+	background-color: white;
+	color: black;
+}
+
+.publish {
+	padding-left: 20px;
+}
+
+.elevated .properties_main {
+	background-color: #e3670b;
+}

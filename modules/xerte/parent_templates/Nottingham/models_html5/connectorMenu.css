@@ -1,0 +1,26 @@
+/* connectorMenu.html */
+	
+#subMenuItems .subMenuItem {
+	display:		block;
+	margin-bottom:	5px;
+	text-align:		left;
+}
+
+#subMenuItems .subMenuItem .notvisited {
+	display: none;
+}
+
+#pageTxt {
+	margin-bottom: 1em;
+}
+@media (min-width: 768px) {
+	#subMenuItems{
+		width: 80%;
+	}
+}
+
+@media (min-width: 1536px) {
+	#subMenuItems{
+		width: 60%;
+	}
+}

@@ -1,0 +1,52 @@
+#x_headerBlock {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+
+  h1 {
+    font-size: 2.5vh;
+  }
+  h2 {
+    font-size: 4.5vh;
+  }
+
+  img {
+    padding: 1vh 5vh;
+    margin-right: 1vw;
+    height: 10vh;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+#x_headerBlock #x_pageIntroBtn {
+	color: white;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg {
+	color: rgba(22, 109, 218, 0.65);
+	background-color: white;
+}
+
+#x_headerBlock #x_pageIntroBtn.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.ui-state-active {
+	color: #A40000;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-state-active {
+	color: white;
+	background-color: #A40000;
+}
+
+/* progress bar */
+#x_headerProgress .progressMarker {
+  border-color: white;
+  background-color: rgb(0, 92, 202);
+}
+#x_headerProgress .progressMarker.complete {
+  border-color: #A40000;
+}
+
+/* page resources */
+
+.resourceDownloadBtn, .resourceDownloadBtn:-webkit-any-link, .resourceDownloadBtn:visited, .resourceDownloadBtn:focus {
+  color: #555 !important;
+}

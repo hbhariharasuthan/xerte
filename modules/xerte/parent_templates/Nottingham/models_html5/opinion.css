@@ -1,0 +1,165 @@
+/* opinion.html */
+
+#canvas-container {
+  margin: 0 auto;
+}
+
+    .qPanel {
+    overflow:	auto;
+    }
+
+    .sliderHolder {
+    margin-top:	5px;
+    margin-bottom:	20px;
+    }
+
+    .sliderHolder .labelHolder
+    {
+        text-align: justify;
+    }
+
+
+    .sliderHolder .inputHolder
+    {
+        width: 100%;
+    }
+	
+	.sliderHolder {
+		margin-top: 1em;
+	}
+	
+	.questionAudio {
+		margin-top: 0.5em;
+	}
+
+    .qSeparator {
+        height:15px;
+    }
+
+    .qSeparator hr{
+        background-color: #eeeeee;
+        border-color: #eeeeee;
+        border: solid 1px #eeeeee;
+    }
+
+    .sliderHolder .rangeHolder .slider
+    {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 20px;
+    }
+
+    .labelHolder table {
+        width: 100%;
+    }
+
+    .sliderHolder .labelHolder a p
+    {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        margin: 0;
+        text-decoration: none;
+        font-size: 0.8em;
+        color: #000;
+    }
+
+    .sliderHolder .labelHolder .leftLabel
+    {
+        /* text-align: left; */
+    }
+
+    .sliderHolder .labelHolder .rightLabel
+    {
+        /* text-align: right; */
+    }
+
+    .sliderHolder .labelHolder:after {
+        content: '';
+        width: 100%;
+    }
+
+    .sliderHolder .rangeHolder
+    {
+        margin-bottom: 2em;
+       
+        border-radius: 2em;
+    }
+
+    .sliderHolder .rangeHolder output
+    {
+        position: relative;
+    }
+
+    .sliderHolder .optionGroup
+    {
+    padding-top:	5px;
+    padding-bottom:	5px;
+    }
+
+    .qTxt {
+        width: 100%;
+        padding: 0;
+    }
+
+    #qNo {
+        padding-top: 0;
+        font-weight: bold;
+    }
+    #buttonHolder
+    {
+    float:	right;
+    margin-bottom:	10px;
+    }
+
+    .optionTxt p
+    {
+        display: inline;
+        padding:0;
+    }
+    
+    .optionGroup .optionTxt {
+        cursor:			pointer;
+        position:		relative;
+        margin-left:	2em;
+        display:		block;
+    }
+
+    .optionGroup input
+    {
+        float: left;
+        display: block;
+    }
+
+    #x_pageDiv .labelCell {
+        vertical-align: bottom;
+    }
+
+.qImg, .opinionImg {
+	max-width: 90%;
+}
+
+#print-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+#print-overlay-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+#x_mainHolder.x_opinion_page .fbBlock:not(:first-child) h3 {
+    padding-top: .5em;
+}
+
+

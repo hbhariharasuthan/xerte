@@ -1,0 +1,5 @@
+name: highcontrast
+display name: Accessibility: High Contrast
+description: A high contrast theme that is available for all users via the accessibility options menu
+enabled: yes
+preview: highcontrast.jpg

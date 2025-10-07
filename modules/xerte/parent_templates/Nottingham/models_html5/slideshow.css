@@ -1,0 +1,28 @@
+/* slideshow.html */
+	
+	#infoHolder {
+		overflow:	auto;
+		border-bottom:	1px solid #CCCCCC;
+	}
+	
+	#pageContents .pageImg {
+		text-align:		center;
+		padding-top:	10px;
+	}
+	
+	#pageContents .pageImg img {
+		opacity:	0;
+		filter:		alpha(opacity=0);
+	}
+	
+	#slideTxt {
+		float: left;
+		font-weight: bold;
+		margin-top: 0.5em;
+		padding-top: 0.7em;
+	}
+	
+	#btnHolder {
+		margin-top: 0.5em;
+		float: right;
+	}

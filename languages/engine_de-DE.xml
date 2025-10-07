@@ -1,0 +1,148 @@
+<language name="Deutsch">
+
+  <nextButton label="Vor" description="N�chste Seite Button"/>
+  
+  <backButton label="Zur�ck" description="Voherige Seite Button"/>
+  
+  <tocButton label="Inhalt" description="Inhaltsverzeichnis Button"/>
+  
+  <helpButton label="Hilfe" description="Hilfe Button. "/>
+
+  <mediaButton label="Medien" description="Medien Button. "/>
+  
+  <homeButton label="Home" description="Home Button. "/>
+  
+  <pageHelp name="Seiten Hilfe" description="Seiten Hilfe" toClose="Zum Schlie�en der Hilfe Leertaste dr�cken"/>
+  
+  <glossaryButton label="Glossar" description="Glossar Button. "/>
+  
+  <continueButton label="Weiter" description="Weiter Button"/>
+  
+  <toc label="Inhaltsverzeichnis" description="Inhaltsverzeichnis. Zur Auswahl der Seite Pfeiltasten benutzen. Leertaste dr�cken, um zur Seite zu gelangen.">
+	  <contentsList label="" description=""/>
+	  <closeButton label="" description="Inhaltsverzeichnis schlie�en Button"/>
+	  <gotoPageButton label="Zur Seite" description="Zur Seite Button"/>
+  </toc>
+  
+  <glossary label="Glossar" description="Eine Liste von W�rtern und ihren Definitionen.">
+	  <closeButton label="" description="Glossar schlie�en Button"/>
+  </glossary>
+  
+  <kbLanguage label="Spezielle Symbole" description="Eine Liste von Buttons die spezielle  Symbole hinzuf�gen">
+	  <closeButton label="" description="Spezielle Symbole Liste schlie�en Button"/>
+  </kbLanguage>
+  
+  <textToSpeech label="Null" description="Text zu Sprache"/>
+  
+  <errorProject label="Die Projektdaten sind nicht geladen."/>
+  
+  <errorPage label="F�r diesen Seitentyp steht zur Zeit kein Template zur Verf�gung."/>
+  
+  <errorBrowser label="Ihr Browser unterst�tzt diesen Seitentyp nicht."/>
+  
+  <errorFlash label="Installieren Sie den Flash Player, um diese Inhalte anzusehen." description="Holen Sie sich den Flash Player"/>
+  
+  <tick label="Tick"/>
+  
+  <cross label="Kreuz"/>
+
+  <themes label="--Farbschema--" description="Farbschema Optionen">
+    <item>default</item>
+    <item>Blau</item>
+    <item>Gr�n</item>
+    <item>Rot</item>
+    <item>Orange</item>
+    <item>Violett</item>
+    <item>Grau</item>
+    <item>Hoher Kontrast 1</item>
+    <item>Hoher Kontrast 2</item>
+  </themes>
+ 
+  <sizes label="--Bildschirmgr��e--" description="Bildschirmgr��e Optionen">
+	<item>default</item>
+	<item>Gro�</item>
+	<item>Gr��er</item>
+	<item>Vollbild</item>
+	<item>Fenster f�llen</item>
+  </sizes>
+  
+  <fonts label="--Text Schriftart--" description="Schriftart Optionen">
+	  <item>default</item>
+  </fonts>
+  
+  <textSizes label="--Text Gr��e--" description="Text Gr��e Optionen">
+	  <item>default</item>
+	  <item>Klein</item>
+	  <item>Medium</item>
+	  <item>Gro�</item>
+	  <item>Gr��er</item>
+  </textSizes>
+  
+  <volumeControl label="Vol:" description="Lautst�rke Regelung"/>
+  <volumeControlSlider label="" description="Lautst�rke Regler"/>
+  
+  <vocab>
+	  <page>Page</page>
+	  <of>of</of>
+  </vocab>
+  
+  <soundController>
+	<stopButton label="Audio stoppen" description="Audio stoppen Button"/>
+	<playButton label="Audio abspielen" description="Audio abspielen Button"/>
+	<pauseButton label="Audio pausieren" description="Audio pausieren Button"/>
+	<rwndButton label="Audio zur�ckspulen" description="Audio zur�ckspulen Button"/>
+	<ffwdButton label="Audio vorspulen" description="Audio vorspulen Button"/>
+	<loader label="Lade: "/>
+  </soundController>
+  
+  <movieController>
+	<stopButton label="Film zur�cksetzen" description="Film anhalten Button"/>
+	<playButton label="Film abspielen" description="Film abspielen Button"/>
+	<pauseButton label="Film pausieren" description="Film pausieren Button"/>
+	<rwndButton label="Film zur�ckspulen" description="Film zur�ckspulen Button"/>
+	<ffwdButton label="Film vorspulen" description="Film vorspulen Button"/>
+	<loader label="Lade: "/>
+  </movieController>
+  
+  <mediaElementControls>
+	<stopButton label="Anhalten" description="Medien anhalten Button"/>
+	<playPauseButton label="Abspielen/Pause" description="Abspielen/Pause Medien Button"/>
+	<muteButton label="Stummschaltetaste" description="Stummschalt-Button"/>
+	<fullscreenButton label="Vollbild" description="Vollbild Film Button"/>
+	<captionsButton label="Untertitel" description="Zeige/Verstecke Untertitel Button"/>
+  </mediaElementControls>
+  
+  <interactions>
+	  <button name="Button"/>
+	  <radioButton selected="Ausgew�hlt. Pfeiltasten benutzen,  um Optionen auszuw�hlen."/>
+	  <checkBox selected="Ausgew�hlt" deselected="nicht ausgew�hlt"/>
+	  <comboBox name="ComboBox" options="Optionen." selected="Ausgew�hlt." selectedOptions="Ausgew�hlt. Zum Ausw�hlen Pfeiltasten benutzen." />
+	  <hotSpot name="HotSpot" toSelect="Hot Spot. Zum Ausw�hlen Leertaste dr�cken." selected="Hot Spot ausgew�hlt"/>
+	  <hotObject name="HotObject" toSelect="Zum Ausw�hlen Leertaste dr�cken." selected="Hot Object ausgew�hlt"/>
+	  <textEntry name="Text Eingabe Feld" selected="Text Eingabe Feld ausgew�hlt"/>
+	  <targetArea name="Zielfl�che" description="Ablagefl�che f�r" toSelect="Zum Ablegen des gew�hlten Objekts Leertaste dr�cken. Press space to drop the selected item."/>
+	  <draggableItem name="Verschiebbares Objekt" selected="Objekt ausgew�hlt" toSelect="Zum Ausw�hlen Leertaste dr�cken" deSelected="Kein Objekt ausgew�hlt." />
+  </interactions>
+  
+  <fetchResults label="Ergebnisse werden abgerufen..."/>
+  <errorResults label="Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten"/>
+  <loadError label="Fehler beim Laden"/>
+  <noResults label="Keine Ergenisse"/>
+  
+  <timer>
+	  <remaining name="Verbleibende Zeit"/>
+	  <timeUp name="Zeit abgelaufen"/>
+	  <seconds name="Sekunden"/>
+  </timer>
+
+    <colourChanger label="Colour Changer" description="Change the colours." tooltip="Change Colours">
+        <closeButton label="" description="Close Colour Changer"/>
+        <selectTxt label="Please select from the options below"/>
+        <adviceTxt label="Need more advice? Visit the &lt;a target=&apos;_blank&apos; href=&apos;https://xot.xerte.org.uk/play.php?template_id=151&apos;&gt;Xerte Toolkits accessibility guide&lt;/a&gt;."/>
+        <off label="Off"/>
+        <noBg label="Remove Background Images"/>
+        <invert label="Invert"/>
+        <blackYellow label="Black on Yellow"/>
+    </colourChanger>
+
+</language>

@@ -1,0 +1,232 @@
+/* change this file to rebrand your version of Xerte Online Toolkits */
+
+body {
+	font-family:	Arial, sans-serif;
+	color:		#7c097d;
+}
+
+#x_mainHolder {
+	border:		1px solid #ffffff;
+	background-color: #fffff0;
+}
+
+#x_headerBlock {
+	color:		#7c097d;
+	background:		#FFFFFF;
+	border-bottom: 1px solid #ffab38;
+	background-color: #fffff0;
+	background-image: none;
+}
+
+#x_footerBlock {
+	font-size:		1em;
+	color:			#FFFFFF;
+	background:		#010101;
+	background-color: #fffff0;
+	border-top: 1px solid #ffab38;
+	background-image: none;
+}
+
+#x_footerBg {
+	background-image: none;
+}
+#x_footerChevron{
+    color: #FF9900;
+}
+
+#x_footerChevron:focus, #x_footerChevron:hover {
+	color: #7c097d;
+}
+
+#x_pageNo {
+	background:	#fffff0;
+	color:		#7c097d;
+	font-weight: bold;
+}
+
+/* progress bar */
+.pbTxt {
+	color: #7c097d;
+}
+.pbContainer {
+	background-color: #FF9900;
+}
+.pbBar {
+	background-color: #7c097d;
+}
+#x_headerProgress .progressMarker {
+	border-color: #FF9900;
+	background-color: #fffff0;
+}
+#x_headerProgress .progressMarker.complete {
+	border-color: #7c097d;
+}
+h1 {
+	font-size:	1em;
+	margin:		0px;
+}
+
+h2 {
+	font-size:	1.2em;
+	margin:		5px 0px 0px;
+}
+
+h3 {
+	font-size:	1em;
+	margin:		0px;
+}
+
+#x_pageDiv span.x_glossary, #x_pageDiv span.x_glossary:link, #x_pageDiv span.x_glossary:visited, #x_pageDiv span.x_glossary:hover, #x_pageDiv span.x_glossary:active {
+	color: #7c097d;
+}
+
+.sliderHolder .labelHolder a p {
+	color: #7c097d;
+}
+
+.ui-button .ui-icon.x_help {					background-image: url("help.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_help {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_help {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_help {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_info {					background-image: url("info.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_info {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_info {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_info {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_home {					background-image: url("home.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_home {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_home {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_home {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_glossary {				background-image: url("glossary.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_glossary {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_glossary {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_glossary {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_maximise {				background-image: url("maximise.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_maximise {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_maximise {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_maximise {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_minimise {				background-image: url("minimise.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_minimise {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_minimise {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_minimise {background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_media {					background-image: url("media.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_media {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_media {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_media {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_next {					background-image: url("next.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_next {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_next {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_next {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_prev {					background-image: url("previous.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_prev {		background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_prev {		background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_prev {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_prev_hist {					background-image: url("previous_hist.svg"); background-position: 0px 0px; }
+.ui-button.ui-state-hover .ui-icon.x_prev_hist {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_prev_hist {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_prev_hist {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_colourChanger { background-image: url("colour_changer.svg"); background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_colourChanger {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_colourChanger {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_colourChanger {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_saveSession { background-image: url("save_session.svg");background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_saveSession {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_saveSession {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_saveSession {	background-position: -84px 0px; }
+
+.ui-button .ui-icon.x_projectIntro { background-image: url("project_intro.svg");background-position: 0px 0px;}
+.ui-button.ui-state-hover .ui-icon.x_projectIntro {	background-position: -42px 0px; }
+.ui-button.ui-state-focus .ui-icon.x_projectIntro {	background-position: -42px 0px; }
+.ui-button.ui-state-active .ui-icon.x_projectIntro {	background-position: -84px 0px; }
+
+#x_footerBlock button.customIconBtn {
+	color: #FF9900;
+}
+
+#x_footerBlock button.customIconBtn:not(.ui-state-disabled):hover, #x_footerBlock button.customIconBtn:not(.ui-state-disabled):focus {
+	color: #7c097d;
+}
+
+.ui-dialog .ui-widget-header {
+border: 1px solid #7c097d;
+background: #7c097d;
+background-image: none;
+color: #ffffff;
+font-weight: bold;
+}
+
+/*****thumbnailViewer******/
+.x_thumbnailViewer_page #thumbOverlayLeft,
+.x_thumbnailViewer_page #thumbOverlayRight {
+  background: #fffff0;
+}
+.x_thumbnailViewer_page #thumbBar button { color: #FF9900; }
+.x_thumbnailViewer_page #thumbBar button.ui-state-hover { color: #7c097d; }
+.x_thumbnailViewer_page #thumbBar button.ui-state-focus { color: #7c097d; }
+.x_thumbnailViewer_page #thumbBar button.ui-state-active { color: #7c097d; }
+
+
+
+#x_headerBlock #x_pageIntroBtn {
+	color: #FF9900;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg {
+	color: #fffff0;
+	background-color: #FF9900;
+}
+
+#x_headerBlock #x_pageIntroBtn.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.ui-state-active {
+	color: #7c097d;
+}
+
+#x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-hover, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-button.ui-state-focus, #x_headerBlock #x_pageIntroBtn.pageIntroBg.ui-state-active {
+	color: #fffff0;
+	background-color: #7c097d;
+}
+
+#x_sideBar {
+	background-color: #fffff0;
+}
+
+#x_sideBarToggleBtn {
+	border-color: #ffab38;
+	color: #7c097d;
+}
+
+#x_sideBarToggleBtn:hover, #x_sideBarToggleBtn:focus, #x_sideBarToggleBtn:active {
+	color: #7c097d;
+	background-color: #ffab38;
+}
+
+#x_sideBarBtnHolder button {
+	color: #7c097d;
+}
+
+#x_sideBar.sideBarSmall #x_sideBarBtnHolder button:not(:last-child) {
+	border-color: #ffab38;
+}
+
+#x_sideBar.sideBarLarge #x_sideBarBtnHolder button span.ui-icon {
+	border-color: #ffab38;
+}
+
+#x_sideBar.sideBarSmall #x_sideBarBtnHolder button:hover, #x_sideBar.sideBarSmall #x_sideBarBtnHolder button:focus, #x_sideBar.sideBarSmall #x_sideBarBtnHolder button:active {
+	background-color: #ffab38;
+	color: #7c097d;
+}
+
+#x_sideBar.sideBarLarge #x_sideBarBtnHolder button:hover span.ui-icon, #x_sideBar.sideBarLarge #x_sideBarBtnHolder button:focus span.ui-icon, #x_sideBar.sideBarLarge #x_sideBarBtnHolder button:active span.ui-icon {
+	background-color: #ffab38;
+	color: #7c097d;
+}

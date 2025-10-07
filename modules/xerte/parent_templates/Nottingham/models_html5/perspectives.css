@@ -1,0 +1,240 @@
+/* perspectives.html */
+	
+	#thumbBar {
+		width: 100%;
+		height: 8em;
+	}
+	
+	#thumbBar.small { height: 5em; }
+	#thumbBar.large { height: 11em; }
+	
+	#thumbBar.grid, #thumbBar.grid.small, #thumbBar.grid.large {
+		height: auto !important;
+	}
+	
+	#prevBtn {
+		float: left;
+		z-index: 5;
+		
+	}
+	
+	#nextBtn {
+		float: right;
+	}
+	
+	#thumbBar button {
+		background: none;
+		border: none;
+		width: 3em;
+		height: 3em;
+		margin-left: 1.5em;
+		margin-right: 1.5em;
+		margin-top: -1.5em;
+		top: 50%;
+	}
+	
+	#thumbBar button .ui-icon {
+		font-size: 3em;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		background-position: 0;
+	}
+	
+	#thumbBar button, #gridBack { color: #434343; cursor: pointer; }
+	#thumbBar button:hover, #thumbBar button:focus, #gridBack:hover, #gridBack:focus { color: #666666; }
+	#thumbBar button:active, #gridBack:active { color: #FF9900; }
+	
+	#thumbBar.hidden {
+		height: 0 !important;
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+	
+	#thumbHolder {
+		width: auto;
+		margin: 0 auto;
+		height: 100%;
+		overflow: hidden;
+		text-align: center;
+		white-space: nowrap;
+		/* hide scrollbar IE, Edge, FF */
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* hide scrollbar Chrome, Safari, Opera */
+	#thumbHolder::-webkit-scrollbar {
+		display: none;
+	}
+	
+	#thumbBar.grid #thumbHolder {
+		overflow: auto;
+		white-space: normal;
+	}
+	
+	#thumbHolder .thumbBox {
+		display: inline-block;
+		vertical-align: top;
+		overflow: hidden;
+		width: 6.5em;
+		height: 6.5em;
+		margin: 5px;
+		padding: 3px;
+		background-color: white;
+		border: 1px solid transparent;
+		text-decoration: none;
+	}
+	
+	#thumbBar.small #thumbHolder .thumbBox { width: 3.5em; height: 3.5em;  }
+	#thumbBar.large #thumbHolder .thumbBox { width: 9.5em; height: 9.5em;  }
+	
+	#thumbHolder .thumbBox.border {
+		border: 1px solid #434343;
+	}
+	
+	#thumbHolder .thumbBox.selected, #thumbHolder .thumbBox.current {
+		border: 2px solid #FFFF00;
+		margin: 4px;
+	}
+	
+	#thumbHolder .thumbBox.playing {
+		border: 2px solid purple;
+		margin: 4px;
+	}
+	
+	#thumbHolder .thumbBox .thumbTitle {
+		font-size: 0.8em;
+		text-align: center;
+		overflow: hidden;
+		margin-bottom: 5px;
+		font-weight: bold;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	
+	#thumbHolder .thumbBox:link, #thumbHolder .thumbBox:hover, #thumbHolder .thumbBox:active, #thumbHolder .thumbBox:visited {
+		color: inherit;
+	}
+	
+	#thumbHolder .thumbMedia {
+		overflow: hidden;
+		position: relative;
+	}
+
+	#thumbHolder .playAll .thumbTitle {
+		font-size: 2em;
+		white-space: normal;
+		display: grid;
+		align-content: center;
+		height: 100%;
+		box-sizing: border-box;
+		margin: 0;
+	}
+
+	.thumbMedia i.fa {
+		font-size: 2em;
+	}
+
+	.thumbMedia.faIcon {
+		display: grid;
+		align-content: center;
+		height: 100%;
+	}
+
+	.thumbTitle:not(.sr-only) + .thumbMedia.faIcon {
+		margin-top: -1em;
+	}
+
+	#thumbBar.small #thumbHolder .playAll .thumbTitle, #thumbBar.small #thumbHolder .thumbMedia i.fa { font-size: 1.2em; }
+	#thumbBar.large #thumbHolder .playAll .thumbTitle, #thumbBar.large #thumbHolder .thumbMedia i.fa { font-size: 2.8em; }
+
+	/* removes controls from thumbnail version of video player */
+	#thumbHolder .thumbMedia .mejs-container .mejs-controls, #thumbHolder .thumbMedia .mejs-container .mejs-layers {
+		display: none !important;
+	}
+
+	#thumbHolder .thumbMedia img {
+		border-width: 0px; /* IE8 fix */
+	}
+
+	#mainInfoHolder {
+		overflow: auto;
+		visibility:	hidden;
+	}
+
+	#mainInfoHolder:not(.noThumbs) {
+		margin-top: 0;
+		margin-bottom: 1em;
+	}
+
+	#thumbBar + #mainInfoHolder:not(.noThumbs) {
+		margin-top:	1em;
+		margin-bottom: 0;
+	}
+
+	#thumbBar.grid + #mainInfoHolder:not(.noThumbs) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	#thumbHolder .thumbCover {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	#thumbHolder .thumbCover {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	#mainInfoHolder.centerAlign #mainTxt {
+		text-align: left;
+	}
+
+	#mainInfoHolder #gridBack {
+		float: right;
+		padding-bottom: 0.5em;
+		font-weight: bold;
+	}
+
+	#mainInfoHolder #gridBack .fa {
+		font-size: 2em;
+		vertical-align: middle;
+		padding-left: 0.3em;
+	}
+
+	#mainTxt + #mediaPanel {
+		margin-top: 20px;
+		margin-bottom: 0;
+  	}
+
+	#mediaPanel:not(.x_floatLeft) {
+		clear: right;
+	}
+
+	#mediaPanel.full {
+		margin-bottom: 0;
+	}
+
+
+	/* RESPONSIVE STYLES */
+	/* font-size stuff is in responsivetext.css */
+
+@media (min-width: 768px) {
+	.x_responsive #thumbBar:not(.grid):not(.hidden) { height: 20.0vmin !important; }
+	.x_responsive #thumbBar.small:not(.grid):not(.hidden) { height: 12.5vmin !important; }
+	.x_responsive #thumbBar.large:not(.grid):not(.hidden) { height: 27.5vmin !important; }
+
+	.x_responsive #thumbHolder .thumbBox { width: 18.0vmin !important; height: 18.0vmin !important; }
+	.x_responsive #thumbBar.small #thumbHolder .thumbBox { width: 9.7vmin !important; height: 9.7vmin !important; }
+	.x_responsive #thumbBar.large #thumbHolder .thumbBox { width: 26.3vmin !important; height: 26.3vmin !important; }
+
+	#thumbBar:not(.small) button { width: 5em; height: 5em; margin-top: -2.5em; }
+	#thumbBar:not(.small) button .ui-icon { font-size: 5em; }
+}

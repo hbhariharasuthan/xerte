@@ -1,0 +1,282 @@
+/*svg{
+  height: 300px;
+  width: 700px;
+}*/
+canvas {
+  height: 400px;
+  width : 100%;
+}
+#adaptiveContent .panel {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-bottom: 20px;
+}
+
+.legend {
+  margin-left: 20px;
+  height: fit-content;
+}
+
+tr.openanswer {
+  color: inherit;
+}
+
+#adaptiveContent .openanswer td {
+  vertical-align: top;
+}
+
+.openanswer td.date {
+  white-space: nowrap;
+}
+
+#listPanel ul li {
+  cursor: pointer;
+}
+
+#adaptiveContentList ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#adaptiveContentList {
+  clear: both;
+}
+li.select-interaction {
+  background: #eeeeee;
+}
+
+li.select-interaction.selected {
+  background: #dddddd;
+}
+
+#listPanel {
+  min-height: 220px;
+}
+
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  margin-left: -100px; /* -1 * div width / 2 */
+  margin-top: -32px;  /* -1 * image height / 2 */
+  display: flex;
+  z-index: 10;
+  flex-direction: column;
+}
+
+#loader_image {
+  margin-left: auto;
+  margin-right:auto;
+  display:block;
+}
+
+#loader_text {
+  text-align: center;
+  color:#888888;
+  font-size:smaller;
+}
+
+.interaction_load {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 66px;
+  margin-left: -33px; /* -1 * div width / 2 */
+}
+
+.loader-gif {
+  margin-left: auto;
+  margin-right:auto;
+  display:block;
+}
+
+
+#adaptiveContentMain .splitScreen .left, #adaptiveContentMain .splitScreen .right {
+  overflow-y: auto;
+}
+
+#adaptiveContentMain {
+  overflow-y: hidden;
+}
+
+.x_adaptiveContent_page #x_pageDiv > div:first-of-type{
+  height: 100%;
+}
+
+.summary {
+  width: 40%;
+  float: left;
+}
+
+.summary-container {
+  display: flex;
+}
+
+.graph-container {
+  width: 60%;
+  float: right;
+  display: block;
+}
+
+.graph-container fieldset.noStyle {
+  width: 100%;
+  float: left;
+}
+
+.graph-container-wide fieldset.noStyle {
+  width: 100%;
+  float: unset;
+}
+
+@media (max-width: 1200px) {
+  .summary-container {
+    display: block;
+  }
+  .graph-container {
+    width: 100%;
+    float: unset;
+    margin-top: 1rem;
+    display: block;
+  }
+  .summary {
+    width: 100%;
+    /* display: inline-block; */
+  }
+  .graph-container fieldset.noStyle {
+    width: 100%;
+  }
+}
+
+.panel.legend, .panel.legend p, .panel.legend ol, .panel.legend ul, .panel.legend li{
+	font-size: inherit;
+}
+
+.graph {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  /*padding-bottom: 100%; /* aspect ratio */
+  vertical-align: top;
+}
+
+#button-placeholder {
+  text-align: right;
+}
+
+.graph-container{
+  width: 60%;
+  margin-bottom: 2vmin;
+  margin-top: 2vmin;
+  display: block;
+}
+
+.graph-container-wide {
+  width: 100%;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #f8f8f8;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  border-bottom-width: thin;
+  border-bottom-color: #ccc;
+  border-bottom-style: solid;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.feedback {
+  background-color: #cccccc;
+  color: #444;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.collapsibleContent {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border: thin solid #ccc;
+}
+
+.collapsible:after {
+  content: "\02B";
+  font-size: 22px;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\02212";
+  font-size: 22px;
+}
+
+.container-print{
+  display: flex;
+  flex-direction: column;
+}
+
+#print-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+#print-overlay-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+@media screen and (max-width: 1200px) {
+  .graph-container {
+    width: 95% !important;
+    display: block;
+  }
+
+  .graph{
+    width: 95% !important;
+  }
+
+  .panel.legend p{
+    font-size: 2.75vmin;
+  }
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.row {
+  display: flex;
+  padding-bottom: 4px;
+}
+
+.periodDisplay {
+  padding: 0;
+  text-align: center;
+}

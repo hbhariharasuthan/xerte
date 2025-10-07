@@ -1,0 +1,38 @@
+/* videoSynch.html */
+	
+#mainText {
+	padding: 0 10px 10px;
+	overflow: auto;
+}
+
+#infoHolder {
+	padding: 	0 10px;
+	overflow:	auto;
+}
+
+#infoHolder div.shown {
+	cursor:			pointer;
+	margin-bottom:	10px;
+}
+
+#infoHolder .myImg {
+	text-align:		center;
+	padding-top:	10px;
+}
+
+#infoHolder .myImg figcaption {
+	text-align: left;
+}
+
+#infoHolder .myImg img {
+	max-width:	100%;
+	max-height:	100%;
+}
+
+div#muteButton, div#playButton {
+	cursor: pointer;
+}
+
+#videoHolder .panel {
+	margin-bottom: 1em;
+}

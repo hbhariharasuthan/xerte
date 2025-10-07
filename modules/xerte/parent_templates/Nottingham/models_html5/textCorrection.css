@@ -1,0 +1,35 @@
+#textHolder {
+    margin-bottom:	10px;
+}
+
+#question {
+    padding-bottom: 10px;
+}
+
+#text {
+    width: 100%;
+	box-sizing: border-box;
+}
+
+#checkButton {
+	margin: 10px 0 10px 10px;
+	float: right;
+}
+
+#attempts, #correctOrNot, #answer, #FurtherClarification {
+	padding-top: 1em;
+	clear: both;
+}
+#mainPanel {
+	overflow: auto;
+}
+
+#correctOrNot .markIcon {
+	margin-right: .5em;
+}
+
+h3.fbLabel {
+	padding-top: 1em;
+	padding-bottom: 0.5em;
+	border-top: 1px solid #ccc;
+}

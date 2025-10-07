@@ -1,0 +1,38 @@
+//*define color pallette*/
+
+$whiteorlightest: #ffffff;
+$blackordarkest: #000000;
+$contrastcolor: #00FFFF;
+
+// ** change these editor styles colours?
+$accent1: #33CC33;
+$accent2: #00FFFF;
+$accent3: #FF0000;
+$accent4: #FF9900;
+$accent5: #6600FF;
+$accent6: #FFFF00;
+
+$bodybackgroundcolor: $blackordarkest;
+$defaultpagebackground: $blackordarkest;
+$panelcolor: $blackordarkest;
+$bordercolor: $whiteorlightest;
+$mainfontcolour: $whiteorlightest;
+$btntxtcolor: $mainfontcolour;
+$linkcolor: $mainfontcolour;
+$linkvisited: $mainfontcolour;
+$linkhover: $contrastcolor;
+
+$progressBarColor: $whiteorlightest;
+
+/*set font family*/
+$mainfonts: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$secondaryfonts:Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+/*define rounded corner and other sizes*/
+$largeroundedcorners: 0;
+$mediumroundedcorners: 0;
+$smallroundedcorners: 0;
+$imageroundedcorners: none;
+$contentmargin: 2%; // **
+$interfaceboxshadow: none;
+$defaultpagepadding: 2%; // **

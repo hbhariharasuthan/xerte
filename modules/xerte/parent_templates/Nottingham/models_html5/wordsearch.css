@@ -1,0 +1,61 @@
+/* wordsearch.html */
+
+	#puzzle .selected {
+		cursor: pointer;
+	}
+
+	#puzzle, #words {
+		float: left;
+	}
+
+	#words {
+		padding: 0;
+		margin: 1em;
+		text-align:	center;
+	}
+
+	#words ul {
+		margin: 0;
+		padding: 0;
+	}
+	
+	#x_mainHolder.x_mobile  #puzzleHolder {
+		text-align: center;
+	}
+	
+	#x_mainHolder.x_mobile  #puzzle {
+		float: none;
+	}
+	
+	#x_mainHolder.x_mobile #words {
+		padding-top: 0;
+	}
+	
+	#x_mainHolder.x_mobile #words li {
+		display: inline-block;
+		margin: 0 1em;
+	}
+
+	#btnHolder {
+		clear: both;
+	}
+
+	#infoHolder {
+		margin-left: 1em;
+	}
+	
+	#x_mainHolder.x_mobile #infoHolder {
+		margin: 0;
+	}
+	
+	#x_mainHolder.x_mobile #puzzle {
+		margin: 0;
+	}
+
+	.stop-scrolling {
+		height: 100%;
+		overflow: hidden;
+		width: 100%;
+		position: fixed;
+	}
+

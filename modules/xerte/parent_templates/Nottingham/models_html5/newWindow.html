@@ -1,0 +1,145 @@
+<script type="text/javascript">
+/**
+ * Licensed to The Apereo Foundation under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work for
+ * additional information regarding copyright ownership.
+
+ * The Apereo Foundation licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+	// pageChanged & sizeChanged functions are needed in every model file
+	// other functions for model should also be in here to avoid conflicts
+	var newWindow = new function() {
+		var	$img;
+		// function called every time the page is viewed after it has initially loaded
+		this.pageChanged = function() {
+			$img = $("#pageImg");
+			this.resizeImg(false);
+		}
+		
+		// function called every time the size of the LO is changed
+		this.sizeChanged = function() {
+			this.resizeImg(false);
+		}
+
+
+		this.resizeImg = function(firstLoad) {
+			var imgMaxW, imgMaxH;
+			imgMaxW = Math.round($x_pageHolder.width() * 0.55 - 20);
+			imgMaxH = x_getAvailableHeight([$("#imgHolder")], [$("#imgHolder figcaption")]);
+			$img.mapster('unbind');
+			x_scaleImg($img, imgMaxW, imgMaxH, true, firstLoad, false);
+
+			$img.css({
+				"opacity"	:1,
+				"filter"	:'alpha(opacity=100)',
+				"max-height" : imgMaxH,
+				"max-width"	:imgMaxW
+			});
+
+			if($img.parents("figure").length > 0 && $img.width() > 0) {
+				$img.parents("figure").find("figcaption").css("max-width", $img.width());
+			}
+		};
+
+		this.init = function() {
+			$img = $("#pageImg");
+			// warn that links open in new window (for screen readers)
+			const linkOpenTxt = x_currentPageXML.getAttribute("target") !== "lightbox" ? ' <i class="fa fa-external-link-alt " aria-label="' + x_getLangInfo(x_languageData.find('screenReaderInfo')[0], 'newWindow', 'opens in a new window') + '"></i>' : '<span class="sr-only">: ' + x_getLangInfo(x_languageData.find('screenReaderInfo')[0], 'dialog', 'opens in a dialog window') + '</span>';
+			
+			// descrip is a new field so old projects might not have it
+			var linkTxt = x_currentPageXML.getAttribute("descrip") != undefined && x_currentPageXML.getAttribute("descrip") != "" ? x_currentPageXML.getAttribute("descrip") : x_currentPageXML.getAttribute("tip") != undefined && x_currentPageXML.getAttribute("tip") != "" ? x_currentPageXML.getAttribute("tip") : "Link";
+			linkTxt += linkOpenTxt;
+			
+			$("#textHolder")
+				.html(x_addLineBreaks(x_currentPageXML.getAttribute("text")) + '<p><a id="newWindowLink" class="newWindowLink" href="#">' + linkTxt + '</a></p>');
+			
+			$("#pageImg")
+				.one("load", function() {
+					var imgMaxW = Math.round($x_pageHolder.width() * 0.55 - 20);
+					var imgMaxH = x_getAvailableHeight([$("#imgHolder")], [$("#imgHolder figcaption")]);
+					if (x_browserInfo.mobile == true) {
+						imgMaxW = 250; // mobile
+						imgMaxH = 250;
+					}
+					newWindow.resizeImg(true)
+					x_scaleImg(this, imgMaxW, imgMaxH);
+					x_pageLoaded();
+				})
+				.attr({
+					"src": x_evalURL(x_currentPageXML.getAttribute("previewImage")),
+					"alt": x_currentPageXML.getAttribute("tip")
+				})
+				.each(function() { // called if loaded from cache as in some browsers load won't automatically trigger
+					if (this.complete) {
+						$(this).trigger("load");
+					}
+				});
+
+			if (x_currentPageXML.getAttribute("caption") != undefined && x_currentPageXML.getAttribute("caption") != "") {
+				$("#pageImg").wrap("<figure></figure>");
+				$("#pageImg").parent("figure").append("<figcaption>" + x_currentPageXML.getAttribute("caption") + "</figcaption>");
+			}
+
+			if (x_currentPageXML.getAttribute("target") == "lightbox") {
+				if (x_currentPageXML.getAttribute("htm") != undefined && x_currentPageXML.getAttribute("htm") != "") {
+					$("#pageContents .newWindowLink").attr({
+						'data-featherlight': x_currentPageXML.getAttribute("htm"),
+						'href': '#'
+					});
+					
+				} else {
+					$("#pageContents .newWindowLink").attr({
+						'data-featherlight': 'iframe',
+						'href': x_currentPageXML.getAttribute("url")
+					});
+				}
+				
+			} else {
+				$("#pageContents .newWindowLink").on("click", function(e) {
+					e.preventDefault();
+					
+					if (x_currentPageXML.getAttribute("htm") != undefined && x_currentPageXML.getAttribute("htm") != "") {
+						var popupWindow = window.open("", "", "width=" + x_currentPageXML.getAttribute("windowWidth") + ", height=" + x_currentPageXML.getAttribute("windowHeight") + ",scrollbars=1");
+						popupWindow.document.write(x_currentPageXML.getAttribute("htm"));
+						popupWindow.focus();
+					} else {
+						var src = x_currentPageXML.getAttribute("url");
+						window.open(src, "_blank", "width=" + x_currentPageXML.getAttribute("windowWidth") + ", height=" + x_currentPageXML.getAttribute("windowHeight") + ",scrollbars=1");
+					}
+				});
+			}
+		}
+	}
+	
+	newWindow.init();
+	
+</script>
+
+
+<div id="pageContents">
+	
+	<div class="mobileAlign">
+		<div id="imgHolder" class="panel inline x_floatRight">
+			<a class="newWindowLink">
+				<img id="pageImg" class="x_noLightBox" style="visibility: hidden" />
+			</a>
+		</div>
+	</div>
+	
+	<div id="textHolder">
+	
+	</div>
+	
+</div>
