@@ -16,6 +16,120 @@ Here's a quick guide to installing toolkits on your local computer:
  5. Visit http://localhost/xertetoolkits/setup
  6. Follow the steps through the setup wizard
 
+Installation Instructions (Mac)
+--------------------------------
+
+### Option 1: Using MAMP (Recommended for Mac users)
+
+1. **Download and install MAMP** from https://www.mamp.info
+2. **Download or clone Xerte**:
+   ```bash
+   git clone https://github.com/hbhariharasuthan/xerte.git
+   ```
+3. **Move to MAMP directory**:
+   ```bash
+   # Default MAMP document root
+   mv xerte /Applications/MAMP/htdocs/
+   ```
+4. **Set permissions**:
+   ```bash
+   cd /Applications/MAMP/htdocs/xerte
+   chmod -R 755 USER-FILES/
+   chmod -R 755 error_logs/
+   chmod -R 755 import/
+   ```
+5. **Start MAMP servers**:
+   - Launch MAMP application
+   - Click "Start Servers" to start Apache and MySQL
+6. **Configure PHP** (if needed):
+   - MAMP > Preferences > PHP
+   - Ensure PHP 7.x or higher is selected
+   - Enable required extensions: mysqli, xml, curl, mbstring, zip
+7. **Run setup wizard**:
+   - Visit http://localhost:8888/xerte/setup (default MAMP port)
+   - Follow the setup wizard instructions
+   - Default MySQL credentials in MAMP:
+     - Host: `localhost`
+     - Port: `8889` (or `3306` for MAMP PRO)
+     - Username: `root`
+     - Password: `root`
+
+### Option 2: Using Homebrew (Advanced)
+
+1. **Install Homebrew** (if not already installed):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. **Install required packages**:
+   ```bash
+   # Install Apache
+   brew install httpd
+   
+   # Install PHP with required extensions
+   brew install php@8.1
+   
+   # Install MySQL
+   brew install mysql
+   ```
+
+3. **Configure Apache**:
+   ```bash
+   # Edit Apache config
+   nano /opt/homebrew/etc/httpd/httpd.conf
+   
+   # Add/uncomment these lines:
+   # LoadModule php_module /opt/homebrew/opt/php@8.1/lib/httpd/modules/libphp.so
+   # DocumentRoot "/opt/homebrew/var/www"
+   # <Directory "/opt/homebrew/var/www">
+   #   Options Indexes FollowSymLinks
+   #   AllowOverride All
+   #   Require all granted
+   # </Directory>
+   ```
+
+4. **Clone repository**:
+   ```bash
+   cd /opt/homebrew/var/www
+   git clone https://github.com/hbhariharasuthan/xerte.git
+   cd xerte
+   ```
+
+5. **Set permissions**:
+   ```bash
+   chmod -R 755 USER-FILES/
+   chmod -R 755 error_logs/
+   chmod -R 755 import/
+   ```
+
+6. **Start services**:
+   ```bash
+   # Start Apache
+   brew services start httpd
+   
+   # Start MySQL
+   brew services start mysql
+   
+   # Secure MySQL installation
+   mysql_secure_installation
+   ```
+
+7. **Access setup wizard**:
+   - Visit http://localhost/xerte/setup
+   - Follow the on-screen instructions
+
+### Mac-specific Notes:
+
+- **PHP Extensions**: Check enabled extensions with `php -m`
+- **Apache Document Root**: 
+  - MAMP: `/Applications/MAMP/htdocs/`
+  - Homebrew: `/opt/homebrew/var/www/` (Apple Silicon) or `/usr/local/var/www/` (Intel)
+- **File Permissions**: Use `chmod` and `chown` if you encounter permission issues
+- **MySQL Socket**: If connection fails, check socket location in PHP configuration
+- **Port Configuration**: 
+  - MAMP uses ports 8888 (Apache) and 8889 (MySQL) by default
+  - Homebrew uses ports 80 (Apache) and 3306 (MySQL) by default
+
 Installation Instructions (unstable release, github)
 --------------------------------------------------
 
