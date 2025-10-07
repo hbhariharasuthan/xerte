@@ -1,5 +1,9 @@
 # Xerte Online Toolkits - Setup Guide
 
+## Repository Information
+
+**Repository URL**: https://github.com/hbhariharasuthan/xerte.git
+
 ## For New Developers/Deployments
 
 After cloning this repository, follow these steps to set up your local or production environment:
@@ -26,7 +30,7 @@ After cloning this repository, follow these steps to set up your local or produc
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/hariharasuthan-hb/xerte.git
+   git clone https://github.com/hbhariharasuthan/xerte.git
    cd xerte
    ```
 
@@ -191,7 +195,7 @@ If you're updating an existing Xerte installation:
    - Any other custom configs
 3. **Pull latest changes**:
    ```bash
-   git pull origin main
+   git pull origin master
    ```
 4. **Restore your configuration files**
 5. **Run upgrade script** (if prompted):
@@ -224,6 +228,7 @@ When contributing code:
 ## 📞 Support
 
 For issues and questions:
-- GitHub Issues: https://github.com/hariharasuthan-hb/xerte/issues
+- GitHub Repository: https://github.com/hbhariharasuthan/xerte
+- GitHub Issues: https://github.com/hbhariharasuthan/xerte/issues
 - Official Xerte Project: https://xerte.org.uk
 
