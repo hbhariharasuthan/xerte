@@ -4,12 +4,7 @@
 # Configuration Files
 # ===========================
 # Ignore actual config files but keep distribution templates
-config.php
-auth_config.php
-api_keys.php
-lrsdb_config.php
-reverse_proxy_conf.php
-database.php
+
 
 # Keep distribution templates
 !config.php.dist
