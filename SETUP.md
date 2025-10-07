@@ -1,0 +1,229 @@
+# Xerte Online Toolkits - Setup Guide
+
+## For New Developers/Deployments
+
+After cloning this repository, follow these steps to set up your local or production environment:
+
+---
+
+## 📋 Prerequisites
+
+1. **Web Server**: Apache or Nginx with PHP support
+2. **PHP**: Version 7.x or higher with extensions:
+   - `mysqli` or `pdo_mysql`
+   - `xml`
+   - `curl`
+   - `mbstring`
+   - `zip`
+3. **MySQL/MariaDB**: Database server
+4. **Write Permissions**: The web server needs write access to `USER-FILES/` directory
+
+---
+
+## 🚀 Installation Steps
+
+### Option 1: Web-Based Setup (Recommended for First-Time Setup)
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/hariharasuthan-hb/xerte.git
+   cd xerte
+   ```
+
+2. **Set permissions**:
+   ```bash
+   # On Linux/Mac:
+   chmod -R 755 USER-FILES/
+   chmod -R 755 error_logs/
+   
+   # On Windows (XAMPP):
+   # Ensure the web server user has write access to these folders
+   ```
+
+3. **Access the setup wizard**:
+   - Open your browser and navigate to: `http://localhost/xerte/setup/`
+   - Follow the on-screen instructions
+   - The setup wizard will:
+     - Check system requirements
+     - Create the database
+     - Generate `database.php` configuration file
+     - Set up initial admin account
+
+4. **Complete installation**:
+   - After successful setup, **delete or restrict access to the `/setup` directory** for security
+
+---
+
+### Option 2: Manual Configuration
+
+If you prefer to set up configuration files manually:
+
+#### 1. Database Configuration
+
+Copy and configure the database settings:
+
+```bash
+# The database.php file will be created by the setup wizard
+# Or you can create it manually using setup/database.txt as a template
+```
+
+**Create `database.php`** in the root directory with your database credentials:
+
+```php
+<?php
+$xerte_toolkits_site->database_type = 'mysqli';
+$xerte_toolkits_site->database_host = 'localhost';
+$xerte_toolkits_site->database_username = 'your_db_user';
+$xerte_toolkits_site->database_password = 'your_db_password';
+$xerte_toolkits_site->database_name = 'xerte_db';
+$xerte_toolkits_site->database_table_prefix = '';
+```
+
+#### 2. Optional Configuration Files
+
+These are **optional** and only needed for specific features:
+
+**Authentication Configuration** (if using LDAP/custom auth):
+```bash
+cp auth_config.php.dist auth_config.php
+# Edit auth_config.php with your settings
+```
+
+**API Keys** (if using external APIs):
+```bash
+cp api_keys_dist.php api_keys.php
+# Edit api_keys.php with your API keys
+```
+
+**LRS Configuration** (if using xAPI/LRS):
+```bash
+cp lrsdb_config.php.dist lrsdb_config.php
+# Edit lrsdb_config.php with your LRS settings
+```
+
+**Reverse Proxy** (if behind a proxy):
+```bash
+cp reverse_proxy_conf.php.dist reverse_proxy_conf.php
+# Edit reverse_proxy_conf.php with your proxy settings
+```
+
+---
+
+## 🔧 Configuration Files Overview
+
+| File | Purpose | Created By | Required? |
+|------|---------|------------|-----------|
+| `database.php` | Database credentials | Setup wizard | ✅ Yes |
+| `config.php` | Core application config | Already in repo | ✅ Yes (committed) |
+| `auth_config.php` | Authentication settings | Copy from `.dist` | ⚠️ Optional |
+| `api_keys.php` | External API keys | Copy from `.dist` | ⚠️ Optional |
+| `lrsdb_config.php` | LRS/xAPI database | Copy from `.dist` | ⚠️ Optional |
+| `reverse_proxy_conf.php` | Proxy configuration | Copy from `.dist` | ⚠️ Optional |
+
+---
+
+## 🔒 Security Notes
+
+### Files NOT Committed to Git (`.gitignore`):
+- `database.php` - Contains sensitive database credentials
+- `auth_config.php` - May contain LDAP/auth secrets
+- `api_keys.php` - Contains API keys
+- `lrsdb_config.php` - May contain additional DB credentials
+- `reverse_proxy_conf.php` - Server-specific configuration
+
+### Files Committed to Git:
+- `*.dist` files - Template files for optional configurations
+- `config.php` - Core application configuration (no secrets)
+
+**⚠️ NEVER commit files containing passwords, API keys, or secrets!**
+
+---
+
+## 📦 After Setup
+
+1. **Update `config.php`** (if needed):
+   - Set `$development = false;` for production
+   - Configure error logging paths
+   - Set site-specific variables
+
+2. **Test the installation**:
+   - Navigate to: `http://localhost/xerte/`
+   - Log in with your admin credentials
+   - Create a test project
+
+3. **Set up cron jobs** (optional, for video transcoding):
+   ```bash
+   # Add to crontab:
+   */5 * * * * php /path/to/xerte/cron/transcoder.php
+   ```
+
+---
+
+## 🆘 Troubleshooting
+
+### Setup wizard not working?
+- Check PHP extensions are installed
+- Verify database server is running
+- Check write permissions on `USER-FILES/` and parent directory
+
+### Database connection errors?
+- Verify database credentials in `database.php`
+- Check MySQL/MariaDB service is running
+- Ensure database user has proper privileges
+
+### Permission errors?
+- Ensure web server can write to:
+  - `USER-FILES/`
+  - `error_logs/`
+  - `import/`
+
+---
+
+## 🔄 For Existing Installations
+
+If you're updating an existing Xerte installation:
+
+1. **Backup your database**
+2. **Backup configuration files**:
+   - `database.php`
+   - `auth_config.php` (if exists)
+   - `api_keys.php` (if exists)
+   - Any other custom configs
+3. **Pull latest changes**:
+   ```bash
+   git pull origin main
+   ```
+4. **Restore your configuration files**
+5. **Run upgrade script** (if prompted):
+   ```
+   http://localhost/xerte/upgrade.php
+   ```
+
+---
+
+## 📚 Additional Documentation
+
+See the `/documentation` folder for:
+- `ToolkitsInstallationGuide.pdf` - Full installation guide
+- `guide_to_upgrading_an_existing_installation.pdf` - Upgrade instructions
+- `integration.txt` - LMS integration guide
+- `ldap.txt` - LDAP authentication setup
+
+---
+
+## 🤝 Contributing
+
+When contributing code:
+1. Never commit actual configuration files (only `.dist` templates)
+2. Test your changes with a fresh setup
+3. Update this guide if you add new configuration requirements
+4. Follow the existing code standards
+
+---
+
+## 📞 Support
+
+For issues and questions:
+- GitHub Issues: https://github.com/hariharasuthan-hb/xerte/issues
+- Official Xerte Project: https://xerte.org.uk
+

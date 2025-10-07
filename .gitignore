@@ -1,0 +1,206 @@
+# Xerte E-Learning Platform - .gitignore
+
+# ===========================
+# Configuration Files
+# ===========================
+# Ignore actual config files but keep distribution templates
+config.php
+auth_config.php
+api_keys.php
+lrsdb_config.php
+reverse_proxy_conf.php
+database.php
+
+# Keep distribution templates
+!config.php.dist
+!auth_config.php.dist
+!api_keys_dist.php
+!lrsdb_config.php.dist
+!reverse_proxy_conf.php.dist
+
+# ===========================
+# User Generated Content
+# ===========================
+USER-FILES/*
+!USER-FILES/.htaccess
+!USER-FILES/readme.txt
+
+# Import directory (user uploads)
+import/*
+!import/readme.txt
+
+# Editor uploads
+editor/upload/*
+editor/test_*
+editor/manual_test.zip
+
+# ===========================
+# Logs and Error Files
+# ===========================
+error_logs/*.log
+error_logs/*.txt
+!error_logs/readme.txt
+!error_logs/blank_document_for_zip.txt
+
+*.log
+error.log
+debug.log
+
+# ===========================
+# Temporary and Cache Files
+# ===========================
+*.tmp
+*.temp
+*.cache
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Session files
+sessions/*
+tmp/*
+temp/*
+
+# ===========================
+# Database Files
+# ===========================
+*.sql
+*.sqlite
+*.db
+!sqlite/*.schema
+
+# Database dumps
+backup/*.sql
+*.sql.gz
+*.sql.zip
+
+# ===========================
+# IDE and Editor Files
+# ===========================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PHPStorm / JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Notepad++
+*.bak
+
+# ===========================
+# OS Specific Files
+# ===========================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# ===========================
+# Dependencies and Packages
+# ===========================
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# ===========================
+# Build and Distribution
+# ===========================
+dist/
+build/
+*.zip
+*.tar
+*.tar.gz
+*.rar
+!manual_test.zip
+
+# Exclude SCORM packages
+*.scorm
+
+# ===========================
+# Media and Large Files
+# ===========================
+# Uncomment if you want to ignore large media files
+# *.mp4
+# *.mov
+# *.avi
+# *.mp3
+# *.wav
+
+# ===========================
+# Testing and Development
+# ===========================
+phpunit.xml
+.phpunit.result.cache
+/tests/coverage/
+
+# Test files
+test_*.php
+*_test.php
+!editor/test_scorm_export.php
+
+# ===========================
+# Security
+# ===========================
+.env
+.env.local
+.env.*.local
+secrets.json
+*.key
+*.pem
+*.cert
+
+# ===========================
+# Xerte Specific
+# ===========================
+# Transcoder temporary files
+/cron/temp/*
+
+# OAI-PMH cache
+/oai-pmh/cache/*
+
+# Setup directory after installation
+/setup/
+
+# Migration scripts (if not needed in repo)
+# /migration/
+
+# Feedback data
+/feedback/data/*
+
+# Version control
+.git/
+.gitattributes
+
+# SCORM diagnostic files
+scorm_diagnostic_*.txt
+
